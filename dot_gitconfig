@@ -1,0 +1,7 @@
+[user]
+	name = negineri
+	email = negineri@sfc.wide.ad.jp
+[pull]
+	ff = only
+[merge]
+	ff = false
