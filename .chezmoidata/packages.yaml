@@ -1,0 +1,15 @@
+packages:
+  darwin:
+    brews:
+    - 'coreutils'
+    - 'curl'
+    - 'git'
+    - 'sheldon'
+    - 'eza'
+    - 'ghq'
+    - 'fzf'
+    casks:
+    - 'font-plemol-jp-nf'
+    - 'wezterm'
+    taps:
+    - 'homebrew/cask-fonts'

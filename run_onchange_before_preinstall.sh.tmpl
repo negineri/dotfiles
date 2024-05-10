@@ -1,0 +1,47 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+set -euC
+
+echo "linux once_before"
+
+exit 1
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -euC
+
+echo "macos once_before"
+read -sp "Password: " sudo_password; echo -e
+
+function install_xcode_clt() {
+    echo "Xcode CLT not found"
+    echo "please execute 'xcode-select --install'"
+    exit 1
+}
+
+function install_homebrew() {
+    # [Some questions about silent installation · Homebrew · Discussion #4311](https://github.com/orgs/Homebrew/discussions/4311)
+    echo ${sudo_password} | sudo -S -p "" echo "get sudo session"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{- if eq .chezmoi.arch "arm64" }}
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- else if eq .chezmoi.arch "amd64" }}
+    # not test
+    eval "$(/usr/local/bin/brew shellenv)"
+{{ end }}
+}
+
+function install_mise() {
+    curl https://mise.run | sh
+}
+
+xcode-select -p 1>/dev/null || install_xcode_clt
+echo "Xcode CLT exist"
+
+which brew 1>/dev/null || install_homebrew
+echo "homebrew exist"
+
+which mise 1>/dev/null || install_mise
+echo "mise-en-place exist"
+{{ end -}}
