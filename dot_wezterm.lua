@@ -57,6 +57,8 @@ end
 
 config.color_scheme = scheme_for_appearance(get_appearance())
 
+config.send_composed_key_when_left_alt_is_pressed = true
+
 -- For example, changing the color scheme:
 -- config.color_scheme = 'AdventureTime'
 
