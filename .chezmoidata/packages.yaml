@@ -8,6 +8,7 @@ packages:
     - 'eza'
     - 'ghq'
     - 'fzf'
+    - 'tmux'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
