@@ -1,6 +1,7 @@
-{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
-
+{{ if not .homebrew -}}
+exit 0
+{{ else if eq .chezmoi.os "darwin" -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
@@ -10,6 +11,19 @@ tap {{ . | quote }}
 brew {{ . | quote }}
 {{ end -}}
 {{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+{{ else -}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range .packages.other.taps -}}
+tap {{ . | quote }}
+{{ end -}}
+{{ range .packages.other.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.other.casks -}}
 cask {{ . | quote }}
 {{ end -}}
 EOF

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+{{ if not .decrypt -}}
+exit 0
+{{ end -}}
 if [ ! -f "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" ]; then
     mkdir -p "{{ .chezmoi.homeDir }}/.config/chezmoi"
     chezmoi age decrypt --output "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"

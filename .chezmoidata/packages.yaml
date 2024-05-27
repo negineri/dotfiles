@@ -4,7 +4,6 @@ packages:
     - 'coreutils'
     - 'curl'
     - 'git'
-    - 'sheldon'
     - 'eza'
     - 'ghq'
     - 'fzf'
@@ -12,5 +11,9 @@ packages:
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
-    taps:
-    - 'homebrew/cask-fonts'
+  other:
+    brews:
+    - 'eza'
+    - 'ghq'
+    - 'fzf'
+    - 'tmux'

@@ -5,7 +5,25 @@ set -euC
 
 echo "linux once_before"
 
-exit 1
+function install_homebrew_rootless() {
+    # [Installation — Homebrew Documentation](https://docs.brew.sh/Installation#alternative-installs)
+    mkdir {{ .chezmoi.homeDir }}/.linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip-components 1 -C .linuxbrew
+    eval "$({{ .chezmoi.homeDir }}/.linuxbrew/bin/brew shellenv)"
+    brew update --force --quiet
+    chmod -R go-w "$(brew --prefix)/share/zsh"
+}
+
+function install_mise() {
+    curl https://mise.run | sh
+}
+
+{{ if and .homebrew .rootless }}
+which brew 1>/dev/null || install_homebrew_rootless
+echo "homebrew exist"
+{{ end -}}
+
+which mise 1>/dev/null || install_mise
+echo "mise-en-place exist"
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 

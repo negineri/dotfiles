@@ -6,3 +6,20 @@ encryption = "age"
     command = "vim"
 [git]
     autoCommit = true
+[data]
+{{ if eq .chezmoi.hostname "Private PC" -}}
+    client = true
+    homebrew = true
+    rootless = false
+    decrypt = true
+{{ else if eq .chezmoi.os "darwin" -}}
+    client = true
+    homebrew = true
+    rootless = false
+    decrypt = true
+{{ else -}}
+    client = {{ promptBool "Client PC?" false }}
+    homebrew = {{ promptBool "install or update homebrew?" false }}
+    rootless = {{ promptBool "rootless install?" true }}
+    decrypt = {{ promptBool "decrypt?" false }}
+{{ end -}}
