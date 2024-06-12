@@ -25,3 +25,8 @@
     refreshPeriod = "168h"
     [".config/zsh/plugins/zsh-eza".clone]
         args = ["--branch=main", "--depth=1"]
+
+[".config/zsh/site-functions/_timew"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
+    refreshPeriod = "168h"

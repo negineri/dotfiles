@@ -17,6 +17,25 @@ function install_mise() {
     curl https://mise.run | sh
 }
 
+function install_zsh_rootless() {
+    if [ ! -e $HOME/.local/bin/zsh ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh-bin/master/install)" -- -d ~/.local -e no
+    fi
+}
+
+{{ if .rootless }}
+which zsh 1>/dev/null || install_zsh_rootless
+echo "zsh exist"
+{{ end -}}
+
+if [ -e $HOME/.bash_profile ]; then
+    if [ ! -e $HOME/.bash_profile.bak ]; then
+        mv $HOME/.bash_profile $HOME/.bash_profile.bak
+    fi
+elif [ ! -e $HOME/.bash_profile.bak ]; then
+    touch $HOME/.bash_profile.bak
+fi
+
 {{ if and .homebrew .rootless }}
 which brew 1>/dev/null || install_homebrew_rootless
 echo "homebrew exist"

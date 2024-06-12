@@ -1,9 +1,10 @@
-" BEGIN ANSIBLE MANAGED BLOCK
 syntax enable
 colorscheme elflord
 set smartindent
-set list listchars=tab:\▸\-
+set list listchars=tab:>-
+hi SpecialKey ctermfg=59
 set expandtab
 set tabstop=2
 set shiftwidth=2
-" END ANSIBLE MANAGED BLOCK
+set modeline
+set modelines=5

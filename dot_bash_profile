@@ -1,0 +1,2 @@
+export SHELL=$HOME/.local/bin/zsh
+[ -f $HOME/.local/bin/zsh ] && exec $HOME/.local/bin/zsh -l

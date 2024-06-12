@@ -8,6 +8,10 @@ packages:
     - 'ghq'
     - 'fzf'
     - 'tmux'
+    - 'transcrypt'
+    - 'task'
+    - 'taskwarrior-tui'
+    - 'timewarrior'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
@@ -17,3 +21,6 @@ packages:
     - 'ghq'
     - 'fzf'
     - 'tmux'
+  linux_rootless:
+    scripts:
+    - "install-fzf.sh"

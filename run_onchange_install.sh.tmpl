@@ -1,30 +1,31 @@
 #!/bin/bash
+PATH=$HOME/.local/bin:$PATH
 {{ if not .homebrew -}}
-exit 0
+# for without homebrew
+{{ range .packages.linux_rootless -}}
+{{ .chezmoi.sourceDir }}/scripts/{{ . | quote }}
+{{ end -}}
+
 {{ else if eq .chezmoi.os "darwin" -}}
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
-{{ range .packages.darwin.taps -}}
-tap {{ . | quote }}
-{{ end -}}
-{{ range .packages.darwin.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-{{ range .packages.darwin.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-EOF
-{{ else -}}
+{{  if eq .chezmoi.arch "arm64" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{  else if eq .chezmoi.arch "amd64" }}
+# not test
+eval "$(/usr/local/bin/brew shellenv)"
+{{  end }}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
-{{ range .packages.other.taps -}}
+{{  range .packages.darwin.taps -}}
 tap {{ . | quote }}
-{{ end -}}
-{{ range .packages.other.brews -}}
+{{  end -}}
+{{  range .packages.darwin.brews -}}
 brew {{ . | quote }}
-{{ end -}}
-{{ range .packages.other.casks -}}
+{{  end -}}
+{{  range .packages.darwin.casks -}}
 cask {{ . | quote }}
-{{ end -}}
+{{  end -}}
 EOF
+{{ else -}}
+# for Linux with homebrew
 {{ end -}}
