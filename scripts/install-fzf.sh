@@ -9,4 +9,5 @@ else
     echo "install fzf"
     git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.local/fzf
     $HOME/.local/fzf/install --bin
+    ln -s $HOME/.local/fzf/bin/fzf $HOME/.local/bin/fzf
 fi
