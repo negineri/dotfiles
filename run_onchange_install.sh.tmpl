@@ -2,9 +2,10 @@
 PATH=$HOME/.local/bin:$PATH
 {{ if not .homebrew -}}
 # for without homebrew
-{{ range .packages.linux_rootless -}}
-{{ .chezmoi.sourceDir }}/scripts/{{ . | quote }}
-{{ end -}}
+{{ $chezmoi_source_dir := .chezmoi.sourceDir }}
+{{  range .packages.linux_rootless -}}
+/bin/bash {{ $chezmoi_source_dir }}/scripts/{{ . | quote }}
+{{  end -}}
 
 {{ else if eq .chezmoi.os "darwin" -}}
 
