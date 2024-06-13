@@ -25,4 +25,5 @@ packages:
     - 'tmux'
   linux_rootless:
     scripts:
-    - "install-fzf.sh"
+    - 'install-fzf.sh'
+    - 'install-eza.sh'
