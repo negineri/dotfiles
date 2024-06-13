@@ -3,5 +3,7 @@
 	email = negineri@sfc.wide.ad.jp
 [pull]
 	ff = only
+[diff]
+	tool = vimdiff
 [merge]
 	ff = false

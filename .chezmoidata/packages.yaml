@@ -4,13 +4,25 @@ packages:
     - 'coreutils'
     - 'curl'
     - 'git'
-    - 'sheldon'
     - 'eza'
     - 'ghq'
     - 'fzf'
     - 'tmux'
+    - 'transcrypt'
+    - 'task'
+    - 'taskwarrior-tui'
+    - 'timewarrior'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
-    taps:
-    - 'homebrew/cask-fonts'
+    scripts:
+    - 'install-timewarrior-hook.sh'
+  other:
+    brews:
+    - 'eza'
+    - 'ghq'
+    - 'fzf'
+    - 'tmux'
+  linux_rootless:
+    scripts:
+    - "install-fzf.sh"

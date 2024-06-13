@@ -1,1 +1,9 @@
+README.md
 key.txt.age
+scripts
+{{ if eq .chezmoi.os "darwin" -}}
+dot_wezterm.lua
+{{ end -}}
+{{ if not .decrypt -}}
+dot_ssh/encrypted_private_config_secret.age
+{{ end -}}
