@@ -1,3 +1,0 @@
-{{ if not .decrypt }}
-encrypted_private_config_secret.age
-{{ end -}}
