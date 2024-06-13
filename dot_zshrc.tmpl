@@ -10,9 +10,11 @@ fi
 # promptinit
 # prompt fade green
 
+{{ if .homebrew -}}
 # [brew Shell Completion — Homebrew Documentation](https://docs.brew.sh/Shell-Completion)
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 FPATH="$HOME/.config/zsh/site-functions:${FPATH}"
+{{- end }}
 
 autoload -Uz compinit && compinit
 
