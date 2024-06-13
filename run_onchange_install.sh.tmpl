@@ -3,7 +3,7 @@ PATH=$HOME/.local/bin:$PATH
 {{ if not .homebrew -}}
 # for without homebrew
 {{ $chezmoi_source_dir := .chezmoi.sourceDir }}
-{{  range .packages.linux_rootless -}}
+{{  range .packages.linux_rootless.scripts -}}
 /bin/bash {{ $chezmoi_source_dir }}/scripts/{{ . | quote }}
 {{  end -}}
 
