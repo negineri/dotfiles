@@ -7,17 +7,17 @@ encryption = "age"
 [git]
     autoCommit = true
 [data]
-{{ if eq .chezmoi.hostname "Private PC" -}}
+{{- if eq .chezmoi.hostname "Private PC" }}
     client = true
     homebrew = true
     rootless = false
     decrypt = true
-{{ else if eq .chezmoi.os "darwin" -}}
+{{- else if eq .chezmoi.os "darwin" }}
     client = true
     homebrew = true
     rootless = false
     decrypt = true
-{{ else -}}
+{{- else }}
     client = {{ promptBool "Client PC?" false }}
     homebrew = {{ promptBool "install homebrew?" false }}
     rootless = {{ promptBool "rootless install?" true }}
