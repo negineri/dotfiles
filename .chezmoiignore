@@ -4,8 +4,8 @@ scripts
 .config/mise/brewless-config.toml
 .config/mise/brew-config.toml
 {{ if eq .chezmoi.os "darwin" -}}
-.wezterm.lua
 {{ end -}}
+.wezterm.lua
 {{ if not .decrypt -}}
 .ssh/config_secret
 {{ end -}}
