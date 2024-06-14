@@ -1,0 +1,9 @@
+[tools]
+node = "20"
+usage = "latest"
+go = "latest"
+"go:github.com/x-motemen/ghq" = "latest"
+"npm:prettier" = "latest"
+
+[settings]
+experimental = true

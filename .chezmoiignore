@@ -1,6 +1,8 @@
 README.md
 key.txt.age
 scripts
+.config/mise/brewless-config.toml
+.config/mise/brew-config.toml
 {{ if eq .chezmoi.os "darwin" -}}
 .wezterm.lua
 {{ end -}}

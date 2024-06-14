@@ -12,9 +12,11 @@ packages:
     - 'task'
     - 'taskwarrior-tui'
     - 'timewarrior'
+    - 'prettier'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
+    taps:
     scripts:
     - 'install-timewarrior-hook.sh'
   other:
