@@ -1,8 +1,8 @@
 #!/bin/bash
 PATH=$HOME/.local/bin:$PATH
+{{ $chezmoi_source_dir := .chezmoi.sourceDir }}
 {{ if not .homebrew -}}
 # for without homebrew
-{{ $chezmoi_source_dir := .chezmoi.sourceDir }}
 {{  range .packages.linux_rootless.scripts -}}
 /bin/bash {{ $chezmoi_source_dir }}/scripts/{{ . | quote }}
 {{  end -}}
@@ -27,6 +27,11 @@ brew {{ . | quote }}
 cask {{ . | quote }}
 {{  end -}}
 EOF
+
+{{  range .packages.darwin.scripts -}}
+/bin/bash {{ $chezmoi_source_dir }}/scripts/{{ . | quote }}
+{{  end -}}
+
 {{ else -}}
 # for Linux with homebrew
 {{ end -}}
