@@ -12,4 +12,4 @@ PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{  end -}}
 {{ end -}}
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+eval "$($HOME/.local/bin/mise activate zsh --shims)"
