@@ -9,3 +9,6 @@ scripts
 {{ if not .decrypt -}}
 .ssh/config_secret
 {{ end -}}
+{{ if .client -}}
+.bash_profile
+{{ end -}}

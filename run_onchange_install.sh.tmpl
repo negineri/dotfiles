@@ -32,6 +32,19 @@ EOF
 /bin/bash {{ $chezmoi_source_dir }}/scripts/{{ . | quote }}
 {{  end -}}
 
-{{ else -}}
-# for Linux with homebrew
+{{ else if .client -}}
+# for Linux client with homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{  range .packages.linux_client.taps -}}
+tap {{ . | quote }}
+{{  end -}}
+{{  range .packages.linux_client.brews -}}
+brew {{ . | quote }}
+{{  end -}}
+{{  range .packages.linux_client.casks -}}
+cask {{ . | quote }}
+{{  end -}}
+EOF
 {{ end -}}

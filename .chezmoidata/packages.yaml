@@ -31,3 +31,21 @@ packages:
     scripts:
     - 'install-fzf.sh'
     - 'install-eza.sh'
+  linux_client:
+    requirements:
+    - 'zsh'
+    brews:
+    - 'eza'
+    - 'ghq'
+    - 'fzf'
+    - 'tmux'
+    - 'transcrypt'
+    - 'task'
+    - 'taskwarrior-tui'
+    - 'timewarrior'
+    - 'nim'
+    casks:
+    taps:
+    scripts:
+    - 'install-timewarrior-hook.sh'
+    - 'install-taskopen.sh'

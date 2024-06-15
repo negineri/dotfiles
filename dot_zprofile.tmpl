@@ -7,4 +7,9 @@ eval "$(/usr/local/bin/brew shellenv)"
 {{ end -}}
 PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 {{ end -}}
+{{ if eq .chezmoi.os "linux" -}}
+{{  if .homebrew  -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{  end -}}
+{{ end -}}
 export PATH="$HOME/.local/share/mise/shims:$PATH"
