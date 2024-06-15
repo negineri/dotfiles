@@ -13,7 +13,6 @@ packages:
     - 'taskwarrior-tui'
     - 'timewarrior'
     - 'nim'
-    - 'prettier'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
