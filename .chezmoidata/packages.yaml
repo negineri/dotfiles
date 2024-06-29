@@ -23,6 +23,7 @@ packages:
     - 'zsh'
     - 'fzf'
     - 'tmux'
+    - 'vim'
     scripts:
     - 'eza'
   linux_client:
