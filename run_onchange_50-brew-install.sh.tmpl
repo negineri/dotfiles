@@ -1,0 +1,30 @@
+#!/bin/bash
+
+{{- with (index .packages .profile) }}{{ if not (hasKey . "brews") }}
+exit 0
+{{- end }}{{ end }}
+
+PATH=$HOME/.local/bin:$PATH
+
+{{- if eq .chezmoi.os "linux" }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- else if eq .chezmoi.os "darwin" }}
+{{-   if eq .chezmoi.arch "arm64" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{-   else if eq .chezmoi.arch "amd64" }}
+# not test
+eval "$(/usr/local/bin/brew shellenv)"
+{{-   end }}
+{{- end }}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{-   with (index .packages .profile) }}{{ range .taps }}
+tap {{ . | quote }}
+{{-   end }}{{ end }}
+{{-   with (index .packages .profile) }}{{ range .brews }}
+brew {{ . | quote }}
+{{-   end }}{{ end }}
+{{-   with (index .packages .profile) }}{{ range .casks }}
+cask {{ . | quote }}
+{{-   end }}{{ end }}
+EOF

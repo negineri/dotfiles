@@ -1,5 +1,5 @@
 packages:
-  darwin:
+  darwin_client:
     brews:
     - 'coreutils'
     - 'curl'
@@ -12,40 +12,31 @@ packages:
     - 'task'
     - 'taskwarrior-tui'
     - 'timewarrior'
-    - 'nim'
+    - 'taskopen'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
     - 'amethyst'
     taps:
-    scripts:
-    - 'install-timewarrior-hook.sh'
-    - 'install-taskopen.sh'
-  other:
-    brews:
-    - 'eza'
-    - 'ghq'
-    - 'fzf'
-    - 'tmux'
-  linux_rootless:
-    scripts:
-    - 'install-fzf.sh'
-    - 'install-eza.sh'
-  linux_client:
-    requirements:
+  linux_server:
+    apt:
     - 'zsh'
-    brews:
-    - 'eza'
-    - 'ghq'
     - 'fzf'
     - 'tmux'
-    - 'transcrypt'
-    - 'task'
-    - 'taskwarrior-tui'
+    scripts:
+    - 'eza'
+  linux_client:
+    apt:
+    - 'zsh'
+    - 'fzf'
+    - 'tmux'
+    - 'taskwarrior'
     - 'timewarrior'
-    - 'nim'
+    brews:
     casks:
     taps:
     scripts:
-    - 'install-timewarrior-hook.sh'
-    - 'install-taskopen.sh'
+    - 'eza'
+    - 'taskopen'
+    - 'transcrypt'
+    - 'taskwarrior-tui'

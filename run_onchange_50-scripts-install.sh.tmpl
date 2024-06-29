@@ -1,0 +1,10 @@
+#!/bin/bash
+
+{{- with (index .packages .profile) }}{{ if not (hasKey . "scripts") }}
+exit 0
+{{- end }}{{ end }}
+
+{{ $chezmoi_source_dir := .chezmoi.sourceDir }}
+{{- with (index .packages .profile) }}{{ range .scripts }}
+/bin/bash {{ $chezmoi_source_dir }}/scripts/install-{{ . }}.sh
+{{- end }}{{ end }}

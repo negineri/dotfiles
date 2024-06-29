@@ -1,3 +1,33 @@
+{{- $interactive := stdinIsATTY }}
+
+{{- $profile := "" }}
+{{- $client := false }}
+{{- $rootless := false }}
+{{- $decrypt := false }}
+{{- if hasKey . "profile" -}}
+{{-   $profile = .profile }}
+{{-   $client = .client }}
+{{-   $rootless = .rootless }}
+{{-   $decrypt = .decrypt }}
+{{- else if eq .chezmoi.hostname "fugaku" }}
+{{-   $profile = "linux_client" }}
+{{-   $client = true }}
+{{-   $decrypt = true }}
+{{- else if eq .chezmoi.os "darwin" }}
+{{-   $profile = "darwin_client" }}
+{{-   $client = true }}
+{{-   $decrypt = true }}
+{{- else if (promptBool "Client PC?" false) }}
+{{-   $profile = "linux_client" }}
+{{-   $client = true }}
+{{-   $decrypt = true }}
+{{- else  }}
+{{-   $profile = "linux_sever" }}
+{{- end }}
+
+{{- if $interactive }}
+{{-   writeToStdout "Tip: you can re-enter your name and email with `chezmoi init --data=false`.\n" }}
+{{- end }}
 encryption = "age"
 [age]
     identity = "~/.config/chezmoi/key.txt"
@@ -7,19 +37,7 @@ encryption = "age"
 [git]
     autoCommit = true
 [data]
-{{- if eq .chezmoi.hostname "fugaku" }}
-    client = true
-    homebrew = true
-    rootless = false
-    decrypt = true
-{{- else if eq .chezmoi.os "darwin" }}
-    client = true
-    homebrew = true
-    rootless = false
-    decrypt = true
-{{- else }}
-    client = {{ promptBool "Client PC?" false }}
-    homebrew = {{ promptBool "install homebrew?" false }}
-    rootless = {{ promptBool "rootless install?" true }}
-    decrypt = {{ promptBool "decrypt?" false }}
-{{ end -}}
+    profile = "{{ $profile }}"
+    client = {{ $client }}
+    rootless = {{ $rootless }}
+    decrypt = {{ $decrypt }}

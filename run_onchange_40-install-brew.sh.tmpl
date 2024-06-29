@@ -1,0 +1,16 @@
+#!/bin/bash
+
+{{- if or .rootless }}
+exit 0
+{{- end}}
+{{- with (index .packages .profile) }}{{ if not (hasKey . "brews") }}
+exit 0
+{{- end }}{{ end }}
+
+function install_homebrew() {
+    echo "Installing Homebrew..."
+    # [Some questions about silent installation · Homebrew · Discussion #4311](https://github.com/orgs/Homebrew/discussions/4311)
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+command -v brew 1>/dev/null || install_homebrew

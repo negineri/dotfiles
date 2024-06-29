@@ -1,0 +1,11 @@
+#!/bin/bash
+
+{{- if .rootless }}
+exit 0
+{{- end}}
+{{- with (index .packages .profile) }}{{ if not (hasKey . "apt") }}
+exit 0
+{{- end }}{{ end }}
+
+sudo apt install -y
+{{- with (index .packages .profile) }}{{ range .apt }} {{ . }}{{ end }}{{ end }}

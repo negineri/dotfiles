@@ -26,3 +26,9 @@ for linux server
 ```text
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
 ```
+
+## profiles
+
+- darwin_client
+- linux_client
+- linux_server

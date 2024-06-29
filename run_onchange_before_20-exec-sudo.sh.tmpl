@@ -1,0 +1,10 @@
+#!/bin/bash
+
+{{- if .rootless }}
+exit 0
+{{- end}}
+
+# hash: {{ include "run_onchange_40-install-brew.sh.tmpl" | sha256sum }}
+if [[ "${EUID:-${UID}}" != "0" ]]; then
+    sudo echo "get sudo session"
+fi

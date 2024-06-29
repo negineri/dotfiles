@@ -1,5 +1,6 @@
-{{ if .homebrew -}}
-{{ .chezmoi.sourceDir }}/dot_config/mise/brew-config.toml
-{{ else -}}
-{{ .chezmoi.sourceDir }}/dot_config/mise/brewless-config.toml
-{{- end }}
+{{- $chezmoi_source_dir := .chezmoi.sourceDir }}
+{{- with (index .packages .profile) }}{{ if hasKey . "brews" }}
+{{- $chezmoi_source_dir }}/dot_config/mise/brew-config.toml
+{{- else }}
+{{- $chezmoi_source_dir }}/dot_config/mise/brewless-config.toml
+{{- end }}{{ end }}
