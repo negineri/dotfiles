@@ -5,6 +5,6 @@ exit 0
 {{- end }}{{ end }}
 
 {{ $chezmoi_source_dir := .chezmoi.sourceDir }}
-{{- with (index .packages .profile) }}{{ range .scripts }}
+{{- with (index .packages .profile) }}{{ if hasKey . "scripts" }}{{ range .scripts }}
 /bin/bash {{ $chezmoi_source_dir }}/scripts/install-{{ . }}.sh
-{{- end }}{{ end }}
+{{- end }}{{ end }}{{ end }}
