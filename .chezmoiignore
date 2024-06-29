@@ -6,6 +6,6 @@ scripts
 {{- if ne .profile "darwin_client" }}
 .wezterm.lua
 {{- end }}
-{{- if not .decrypt -}}
+{{- if not .decrypt }}
 .ssh/config_secret
 {{- end }}
