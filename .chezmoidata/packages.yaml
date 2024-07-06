@@ -31,11 +31,9 @@ packages:
     - 'zsh'
     - 'fzf'
     - 'tmux'
+    - 'vim'
     - 'taskwarrior'
     - 'timewarrior'
-    brews:
-    casks:
-    taps:
     scripts:
     - 'eza'
     - 'taskopen'
