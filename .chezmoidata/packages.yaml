@@ -14,12 +14,16 @@ packages:
     - 'timewarrior'
     - 'taskopen'
     - '"d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-spacemacs-icon"]'
+    - 'gnu-tar'
+    - 'ripgrep'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
     - 'amethyst'
     taps:
     - 'd12frosted/emacs-plus'
+    scripts:
+    - 'spacemacs'
   linux_server:
     apt:
     - 'zsh'
