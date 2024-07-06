@@ -13,11 +13,13 @@ packages:
     - 'taskwarrior-tui'
     - 'timewarrior'
     - 'taskopen'
+    - '"d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-spacemacs-icon"]'
     casks:
     - 'font-plemol-jp-nf'
     - 'wezterm'
     - 'amethyst'
     taps:
+    - 'd12frosted/emacs-plus'
   linux_server:
     apt:
     - 'zsh'
