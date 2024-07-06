@@ -30,3 +30,10 @@
     type = "file"
     url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
     refreshPeriod = "168h"
+
+[".emacs.d"]
+    type = "git-repo"
+    url = "https://github.com/syl20bnr/spacemacs"
+    refreshPeriod = "168h"
+    [".emacs.d".pull]
+        args = ["--rebase"]

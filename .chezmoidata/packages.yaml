@@ -13,7 +13,6 @@ packages:
     - 'taskwarrior-tui'
     - 'timewarrior'
     - 'taskopen'
-    - '"d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-spacemacs-icon"]'
     - 'gnu-tar'
     - 'ripgrep'
     casks:
@@ -21,9 +20,8 @@ packages:
     - 'wezterm'
     - 'amethyst'
     taps:
-    - 'd12frosted/emacs-plus'
     scripts:
-    - 'spacemacs'
+    - 'emacs-plus'
   linux_server:
     apt:
     - 'zsh'
