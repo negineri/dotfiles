@@ -48,6 +48,30 @@ This function should only modify configuration layer settings."
      multiple-cursors
      (org :variables
         org-roam-directory "~/org-roam"
+        org-roam-dailies-directory ""
+        org-roam-node-display-template "${file}"
+        org-roam-dailies-capture-templates
+          '(("d" "default" plain
+              "* tasks\n\n- %?\n* log"
+              :if-new (file+head "daily.journal.%<%Y.%m.%d>.org" "#+title: %<%Y-%m-%d> - Journal\n\n")
+              :unnarrowed t))
+        org-roam-capture-templates
+          '(("d" "default" plain
+              "%?"
+              :if-new (file+head "${slug}.org" "#+title: ${title}\n\n")
+              :unnarrowed t)
+            ("t" "task" plain
+              "* 概要\n\n%?\n* 作業"
+              :if-new (file+head "task.%<%Y.%m.%d>.${slug}.org" "#+title: ${title}\n\n")
+              :unnarrowed t)
+            ("m" "meeting" plain
+              "* 書記\n\n%?"
+              :if-new (file+head "meet.%<%Y.%m.%d>.${slug}.org" "#+title: ${title} - Meeting\n\n")
+              :unnarrowed t)
+            ("s" "Scratch note" plain
+              "%?"
+              :if-new (file+head "scratch.%<%Y.%m.%d.%M%S%3N>.org" "#+title: ${title} - Scratch\n\n")
+              :unnarrowed t))
         org-enable-roam-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
