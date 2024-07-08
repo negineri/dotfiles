@@ -38,7 +38,7 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
+     auto-completion
      ;; better-defaults
      emacs-lisp
      ;; git
@@ -46,7 +46,8 @@ This function should only modify configuration layer settings."
      ;; lsp
      ;; markdown
      multiple-cursors
-     ;; org
+     (org :variables
+        org-enable-roam-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -259,7 +260,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("PlemolJP Console NF"
-                               :size 10.0
+                               :size 12.0
                                :weight normal
                                :width normal)
 
@@ -574,6 +575,15 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (with-eval-after-load 'org
+  ;; here goes your Org config :)
+    (org-defkey org-mode-map (kbd "S-<return>") #'org-meta-return)
+    (org-defkey org-mode-map (kbd "S-RET") #'org-meta-return)
+    (org-defkey org-mode-map (kbd "C-c n l") #'org-roam-buffer-toggle)
+    (org-defkey org-mode-map (kbd "C-c n f") #'org-roam-node-find)
+    (org-defkey org-mode-map (kbd "C-c n g") #'org-roam-graph)
+    (org-defkey org-mode-map (kbd "C-c n i") #'org-roam-node-insert)
+  )
 )
 
 
