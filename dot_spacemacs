@@ -47,6 +47,7 @@ This function should only modify configuration layer settings."
      ;; markdown
      multiple-cursors
      (org :variables
+        org-roam-directory "~/org-roam"
         org-enable-roam-support t)
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -577,6 +578,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (with-eval-after-load 'org
   ;; here goes your Org config :)
+    (org-roam-db-autosync-mode)
     (org-defkey org-mode-map (kbd "S-<return>") #'org-meta-return)
     (org-defkey org-mode-map (kbd "S-RET") #'org-meta-return)
     (org-defkey org-mode-map (kbd "C-c n l") #'org-roam-buffer-toggle)
