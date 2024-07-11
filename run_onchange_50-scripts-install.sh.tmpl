@@ -6,5 +6,6 @@ exit 0
 
 {{ $chezmoi_source_dir := .chezmoi.sourceDir }}
 {{- with (index .packages .profile) }}{{ if hasKey . "scripts" }}{{ range .scripts }}
+# install-{{ . }}.sh hash: {{ include (printf "%s%s%s" "scripts/install-" . ".sh") | sha256sum }}
 /bin/bash {{ $chezmoi_source_dir }}/scripts/install-{{ . }}.sh
-{{- end }}{{ end }}{{ end }}
+{{ end }}{{ end }}{{ end }}
