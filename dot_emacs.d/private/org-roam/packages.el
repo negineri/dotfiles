@@ -41,30 +41,79 @@
 ;;; Code:
 
 (defconst org-roam-packages
-  '()
-  "The list of Lisp packages required by the org-roam layer.
+  '(
+    (org-roam :location
+              (recipe :fetcher github :repo "org-roam/org-roam"))
+    (org-roam-bibtex :location
+                     (recipe :fetcher github :repo "org-roam/org-roam-bibtex"))))
 
-Each entry is either:
+(defun org-roam/init-org-roam ()
+  (use-package org-roam
+    :defer t
+    :hook (after-init . org-roam-mode)
+    :custom
+    (org-roam-directory "~/org-roam") ;; please change it to your path
+    :config
+    (progn
+      (spacemacs/declare-prefix "aor" "org-roam")
+      (spacemacs/declare-prefix "aord" "org-roam-dailies")
+      (spacemacs/declare-prefix "aort" "org-roam-tags")
+      (spacemacs/set-leader-keys
+        "aordy" 'org-roam-dailies-goto-yesterday
+        "aordt" 'org-roam-dailies-goto-today
+        "aordT" 'org-roam-dailies-goto-tomorrow
+        "aordd" 'org-roam-dailies-goto-date
+        "aorf" 'org-roam-node-find
+        "aorc" 'org-roam-capture
+        "aorg" 'org-roam-graph
+        "aori" 'org-roam-node-insert
+        "aorl" 'org-roam-buffer-toggle
+        "aorta" 'org-roam-tag-add
+        ;; "aortd" 'org-roam-tag-delete
+        "aortr" 'org-roam-tag-remove
+        "aora" 'org-roam-alias-add)
 
-1. A symbol, which is interpreted as a package to be installed, or
+      (spacemacs/declare-prefix-for-mode 'org-mode "mr" "org-roam")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mrd" "org-roam-dailies")
+      (spacemacs/declare-prefix-for-mode 'org-mode "mrt" "org-roam-tags")
+    (setq org-roam-mode-sections
+          (list #'org-roam-backlinks-insert-section
+                #'org-roam-reflinks-insert-section
+                ))
+    (setq org-roam-file-extensions '("org"))
+    (org-roam-setup)
+    (setq org-roam-node-display-template "${file}")
 
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
+    ;; templates
+    (setq org-roam-capture-templates
+          '(("d" "default" plain
+              "%?"
+              :if-new (file+head "${slug}.org" "#+title: ${title}\n\n")
+              :unnarrowed t)
+            ("t" "task" plain
+              "* 概要\n\n%?\n* 作業"
+              :if-new (file+head "task.%<%Y.%m.%d>.${slug}.org" "#+title: ${title}\n\n")
+              :unnarrowed t)
+            ("m" "meeting" plain
+              "* 書記\n\n%?"
+              :if-new (file+head "meet.%<%Y.%m.%d>.${slug}.org" "#+title: ${title} - Meeting\n\n")
+              :unnarrowed t)
+            ("s" "Scratch note" plain
+              "%?"
+              :if-new (file+head "scratch.%<%Y.%m.%d.%M%S%3N>.org" "#+title: ${title} - Scratch\n\n")
+              :unnarrowed t)))
+    (setq org-roam-dailies-directory "")
+    (setq org-roam-dailies-capture-templates
+          '(("d" "default" plain
+              "* tasks\n\n- %?\n* log"
+              :if-new (file+head "daily.journal.%<%Y.%m.%d>.org" "#+title: %<%Y-%m-%d> - Journal\n\n")
+              :unnarrowed t))))
+))
 
-    The following keys are accepted:
-
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
-
-    - :location: Specify a custom installation location.
-      The following values are legal:
-
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+(defun org-roam/init-org-roam-bibtex ()
+  (use-package org-roam-bibtex
+    :after org-roam
+    :config
+    (setq orb-roam-ref-format "org-cite")
+    :bind (:map org-mode-map
+                (("C-c n a" . orb-note-actions)))))

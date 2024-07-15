@@ -23,6 +23,7 @@ packages:
     taps:
     scripts:
     - 'emacs-plus'
+    - 'spacemacs'
   linux_server:
     apt:
     - 'zsh'

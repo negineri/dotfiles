@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -d $HOME/.local/fzf ]; then
+if [ -d $HOME/.emacs.d ]; then
     echo "update spacemacs"
     cd $HOME/.emacs.d
     git pull --rebase
