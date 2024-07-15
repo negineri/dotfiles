@@ -101,6 +101,10 @@
             ("s" "Scratch note" plain
               "%?"
               :if-new (file+head "scratch.%<%Y.%m.%d.%M%S%3N>.org" "#+title: ${title} - Scratch\n\n")
+              :unnarrowed t)
+            ("r" "bibliography reference" plain "* 問題提起\n\n%?\n\n* 結論\n\n* 感想\n\n"
+              :target (file+head "references.${citekey}.org"
+                "#+title: ${title} - Reference\n#+bibliography: my_library.bib\n\n")
               :unnarrowed t)))
     (setq org-roam-dailies-directory "")
     (setq org-roam-dailies-capture-templates
@@ -114,6 +118,6 @@
   (use-package org-roam-bibtex
     :after org-roam
     :config
-    (setq orb-roam-ref-format "org-cite")
+    (setq orb-roam-ref-format 'org-cite)
     :bind (:map org-mode-map
                 (("C-c n a" . orb-note-actions)))))
