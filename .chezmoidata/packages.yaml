@@ -19,6 +19,7 @@ packages:
     - 'font-plemol-jp-nf'
     - 'wezterm'
     - 'amethyst'
+    - 'zotero'
     taps:
     scripts:
     - 'emacs-plus'
