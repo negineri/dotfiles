@@ -117,6 +117,8 @@
 (defun org-roam/init-org-roam-bibtex ()
   (use-package org-roam-bibtex
     :after org-roam
+    :custom
+    (orb-insert-interface 'orb-insert-generic)
     :config
     (setq orb-roam-ref-format 'org-cite)
     :bind (:map org-mode-map

@@ -576,6 +576,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (define-key global-map [?¥] [?\\])
   (setq-default gac-ask-for-summary-p nil)
   (setq-default gac-automatically-push-p t)
   (setq-default gac-silent-message-p t)
