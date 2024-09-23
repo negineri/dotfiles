@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function configure_vsvim() {
+    echo "Configuring VSCode for VSVim"
+    defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+}
+
+{{ if eq .chezmoi.os "darwin" -}}
+defaults read com.microsoft.VSCode ApplePressAndHoldEnabled &>/dev/null || configure_vsvim
+{{ end -}}

@@ -20,6 +20,15 @@ packages:
     - 'wezterm'
     - 'amethyst'
     - 'zotero'
+    - 'blackhole-2ch'
+    - 'visual-studio-code'
+    - 'deepl'
+    - 'monitorcontrol'
+    - 'wireshark'
+    - 'google-chrome'
+    - 'slack'
+    - 'discord'
+    - 'nextcloud'
     taps:
     scripts:
     - 'emacs-plus'
