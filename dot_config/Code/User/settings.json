@@ -1,0 +1,129 @@
+{
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "git.enableSmartCommit": true,
+    "remote.SSH.remotePlatform": {
+        "192.168.38.46": "linux",
+        "ops.kn1.negineri.com": "linux",
+        "ops.kn1": "linux",
+        "jellyfish": "linux",
+        "chezmoi1.kn1": "linux",
+        "ops01.kn1": "linux"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "python.analysis.typeCheckingMode": "strict",
+    "git.confirmSync": false,
+    "[ansible]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    },
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.associations": {
+        "devcontainer.json": "jsonc",
+        "LICENSE": "plaintext"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "gitlens.advanced.messages": {
+        "suppressGitMissingWarning": true
+    },
+    "licenser.author": "negineri",
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command",
+        "switch:command",
+        "tag-create:command"
+    ],
+    "redhat.telemetry.enabled": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "licenser.useSPDXLicenseFormat": true,
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "files.insertFinalNewline": true,
+    "remote.WSL.fileWatcher.polling": true,
+    "vim.handleKeys": {
+        "<C-p>": false,
+        "<C-d>": true,
+        "<C-s>": false,
+        "<C-z>": false
+    },
+    "vim.foldfix": true,
+    "[go]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+        "editor.defaultFormatter": "golang.go"
+    },
+    "markdownlint.config": {
+        "MD033": {
+            "allowed_elements": [
+                "default"
+            ]
+        }
+    },
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--fast"
+    ],
+    "git.allowForcePush": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "yaml.maxItemsComputed": 15000,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportUnknownMemberType": "information"
+    },
+    "flake8.args": [
+        "--ignore=E501"
+    ],
+    "window.autoDetectColorScheme": true,
+    "remote.autoForwardPortsSource": "hybrid",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.fontFamily": "'PlemolJP Console NF', Consolas, 'Courier New', monospace",
+    "workbench.colorTheme": "Default Light Modern",
+    "github.copilot.editor.enableAutoCompletions": true,
+    "prettier.resolveGlobalModules": true,
+    "git.autoStash": true,
+    "hediet.vscode-drawio.resizeImages": null,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "review": true
+    },
+    "python.venvFolders": [
+        ".venv"
+    ],
+}

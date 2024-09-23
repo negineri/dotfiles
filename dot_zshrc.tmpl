@@ -62,7 +62,10 @@ source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/plugins/zsh-abbr/zsh-abbr.zsh
 source ~/.config/zsh/plugins/zsh-eza/zsh-eza.plugin.zsh
-source ~/.config/zsh/sync/ghq-fzf.zsh
+
+for file in ~/.config/zsh/sync/*.zsh; do
+  source $file
+done
 
 # abbr -S --force ls='eza $eza_params' 1> /dev/null
 abbr -S tt='taskwarrior-tui' 1> /dev/null
