@@ -1,57 +1,61 @@
 packages:
   darwin_client:
     brews:
-    - 'coreutils'
-    - 'curl'
-    - 'git'
-    - 'eza'
-    - 'ghq'
-    - 'fzf'
-    - 'tmux'
-    - 'transcrypt'
-    - 'task'
-    - 'taskwarrior-tui'
-    - 'timewarrior'
-    - 'taskopen'
-    - 'gnu-tar'
-    - 'ripgrep'
+      - "coreutils"
+      - "curl"
+      - "git"
+      - "eza"
+      - "ghq"
+      - "fzf"
+      - "tmux"
+      - "transcrypt"
+      - "task"
+      - "taskwarrior-tui"
+      - "timewarrior"
+      - "taskopen"
+      - "gnu-tar"
+      - "ripgrep"
+      - "gcc"
     casks:
-    - 'font-plemol-jp-nf'
-    - 'wezterm'
-    - 'amethyst'
-    - 'zotero'
-    - 'blackhole-2ch'
-    - 'visual-studio-code'
-    - 'deepl'
-    - 'monitorcontrol'
-    - 'wireshark'
-    - 'google-chrome'
-    - 'slack'
-    - 'discord'
-    - 'nextcloud'
+      - "font-plemol-jp-nf"
+      - "wezterm"
+      - "amethyst"
+      - "zotero"
+      - "blackhole-2ch"
+      - "visual-studio-code"
+      - "deepl"
+      - "monitorcontrol"
+      - "wireshark"
+      - "google-chrome"
+      - "slack"
+      - "discord"
+      - "nextcloud"
+      - "zoom"
+      - "vlc"
+      - "obs"
     taps:
     scripts:
-    - 'emacs-plus'
-    - 'spacemacs'
-    - 'org-roam'
+      - "emacs-plus"
+      - "spacemacs"
+      - "org-roam"
   linux_server:
     apt:
-    - 'zsh'
-    - 'fzf'
-    - 'tmux'
-    - 'vim'
+      - "zsh"
+      - "fzf"
+      - "tmux"
+      - "vim"
     scripts:
-    - 'eza'
+      - "eza"
   linux_client:
     apt:
-    - 'zsh'
-    - 'fzf'
-    - 'tmux'
-    - 'vim'
-    - 'taskwarrior'
-    - 'timewarrior'
+      - "zsh"
+      - "fzf"
+      - "tmux"
+      - "vim"
+      - "taskwarrior"
+      - "timewarrior"
     scripts:
-    - 'eza'
-    - 'taskopen'
-    - 'transcrypt'
-    - 'taskwarrior-tui'
+      - "eza"
+      - "taskopen"
+      - "transcrypt"
+      - "taskwarrior-tui"
