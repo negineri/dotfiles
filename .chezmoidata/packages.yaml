@@ -16,6 +16,8 @@ packages:
       - "gnu-tar"
       - "ripgrep"
       - "gcc"
+      - "uv"
+      - "hashicorp/tap/terraform"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"
@@ -34,6 +36,7 @@ packages:
       - "vlc"
       - "obs"
     taps:
+      - "hashicorp/tap"
     scripts:
       - "emacs-plus"
       - "spacemacs"
@@ -46,6 +49,7 @@ packages:
       - "vim"
     scripts:
       - "eza"
+      - "uv"
   linux_client:
     apt:
       - "zsh"
@@ -59,3 +63,4 @@ packages:
       - "taskopen"
       - "transcrypt"
       - "taskwarrior-tui"
+      - "uv"
