@@ -18,6 +18,7 @@ packages:
       - "gcc"
       - "uv"
       - "hashicorp/tap/terraform"
+      - "docker"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"

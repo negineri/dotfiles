@@ -126,4 +126,5 @@
     "python.venvFolders": [
         ".venv"
     ],
+    "hediet.vscode-drawio.theme": "Kennedy",
 }
