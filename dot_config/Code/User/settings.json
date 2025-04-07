@@ -127,4 +127,5 @@
         ".venv"
     ],
     "hediet.vscode-drawio.theme": "Kennedy",
+    "dev.containers.dockerSocketPath": "ssh://code.witenp.com",
 }

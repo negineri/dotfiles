@@ -36,6 +36,7 @@ packages:
       - "zoom"
       - "vlc"
       - "obs"
+      - "gns3"
     taps:
       - "hashicorp/tap"
     scripts:

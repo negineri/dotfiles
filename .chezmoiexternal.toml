@@ -17,7 +17,7 @@
     url = "https://github.com/olets/zsh-abbr.git"
     refreshPeriod = "168h"
     [".config/zsh/plugins/zsh-abbr".clone]
-        args = ["--recurse-submodules", "--single-branch", "--depth 1"]
+        args = ["--recurse-submodules", "--single-branch", "--depth=1"]
 
 [".config/zsh/plugins/zsh-eza"]
     type = "git-repo"
