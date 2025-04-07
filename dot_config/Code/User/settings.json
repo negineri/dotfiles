@@ -126,6 +126,19 @@
     "python.venvFolders": [
         ".venv"
     ],
-    "hediet.vscode-drawio.theme": "Kennedy",
+    "hediet.vscode-drawio.theme": "kennedy",
+    "hediet.vscode-drawio.appearance": "light",
     "dev.containers.dockerSocketPath": "ssh://code.witenp.com",
+    "chat.agent.enabled": true,
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "text": "Follow Conventional Commits."
+        },
+        {
+            "text": "The first line must be 72 characters or less."
+        },
+        {
+            "text": "Bullet point detailed information after the third line."
+        }
+    ],
 }
