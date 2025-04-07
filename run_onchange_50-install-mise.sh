@@ -8,4 +8,10 @@ function install_mise() {
     curl https://mise.run | sh
 }
 
+function update_mise() {
+    echo "Updating Mise..."
+    mise self-update
+}
+
 command -v mise 1>/dev/null || install_mise
+update_mise
