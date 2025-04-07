@@ -1,3 +1,0 @@
-{{- if eq .profile "darwin_client" }}
-uv.zsh
-{{- end }}

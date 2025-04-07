@@ -4,6 +4,7 @@ usage = "latest"
 go = "latest"
 python = "latest"
 "go:github.com/x-motemen/ghq" = "latest"
+uv = "latest"
 
 [settings]
 experimental = true

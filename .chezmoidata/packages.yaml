@@ -16,7 +16,6 @@ packages:
       - "gnu-tar"
       - "ripgrep"
       - "gcc"
-      - "uv"
       - "hashicorp/tap/terraform"
       - "docker"
     casks:
@@ -51,7 +50,6 @@ packages:
       - "vim"
     scripts:
       - "eza"
-      - "uv"
   linux_client:
     apt:
       - "zsh"
@@ -65,4 +63,3 @@ packages:
       - "taskopen"
       - "transcrypt"
       - "taskwarrior-tui"
-      - "uv"

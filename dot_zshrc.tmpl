@@ -16,6 +16,10 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 {{- end }}{{ end }}
 FPATH="$HOME/.config/zsh/site-functions:${FPATH}"
 
+{{ if eq .chezmoi.os "darwin" -}}
+alias dircolors='gdircolors'
+{{ end -}}
+
 autoload -Uz compinit && compinit
 
 # setopt histignorealldups sharehistory
