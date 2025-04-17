@@ -141,4 +141,5 @@
             "text": "Bullet point detailed information after the third line."
         }
     ],
+    "python.analysis.autoImportCompletions": true,
 }
