@@ -2,5 +2,9 @@
 
 if [ $SHELL != "/bin/zsh" ]; then
     echo "execute: chsh -s /bin/zsh"
-    chsh -s /bin/zsh
+    if ! chsh -s /bin/zsh; then
+        echo "Failed to set shell with chsh -s /bin/zsh"
+        echo "Trying alternative: chsh $USER -s $(which zsh)"
+        sudo chsh $USER -s $(which zsh)
+    fi
 fi
