@@ -142,4 +142,5 @@
         }
     ],
     "python.analysis.autoImportCompletions": true,
+    "github.copilot.nextEditSuggestions.enabled": true,
 }

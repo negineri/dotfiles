@@ -5,6 +5,8 @@ go = "latest"
 python = "3.13"
 uv = "latest"
 "pipx:git+https://github.com/negineri/moro.git" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:prettier" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

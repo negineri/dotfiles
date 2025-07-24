@@ -5,6 +5,12 @@ function configure_vsvim() {
     defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 }
 
+function configure_obvim() {
+    echo "Configuring Obsidian for vim mode"
+    defaults write md.obsidian ApplePressAndHoldEnabled -bool false
+}
+
 {{ if eq .chezmoi.os "darwin" -}}
 defaults read com.microsoft.VSCode ApplePressAndHoldEnabled &>/dev/null || configure_vsvim
+defaults read md.obsidian ApplePressAndHoldEnabled &>/dev/null || configure_obvim
 {{ end -}}
