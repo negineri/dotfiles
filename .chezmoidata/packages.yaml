@@ -19,6 +19,7 @@ packages:
       - "hashicorp/tap/terraform"
       - "docker"
       - "gh"
+      - "gemini-cli"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"
