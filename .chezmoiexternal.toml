@@ -1,34 +1,34 @@
 [".config/zsh/plugins/powerlevel10k"]
-    type = "git-repo"
-    url = "https://github.com/romkatv/powerlevel10k.git"
-    refreshPeriod = "168h"
-    [".config/zsh/plugins/powerlevel10k".clone]
-        args = ["--depth=1"]
+type = "git-repo"
+url = "https://github.com/romkatv/powerlevel10k.git"
+refreshPeriod = "168h"
+[".config/zsh/plugins/powerlevel10k".clone]
+args = ["--depth=1"]
 
 [".config/zsh/plugins/zsh-autosuggestions"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-autosuggestions"
-    refreshPeriod = "168h"
-    [".config/zsh/plugins/zsh-autosuggestions".clone]
-        args = ["--depth=1"]
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-autosuggestions"
+refreshPeriod = "168h"
+[".config/zsh/plugins/zsh-autosuggestions".clone]
+args = ["--depth=1"]
 
 [".config/zsh/plugins/zsh-abbr"]
-    type = "git-repo"
-    url = "https://github.com/olets/zsh-abbr.git"
-    refreshPeriod = "168h"
-    [".config/zsh/plugins/zsh-abbr".clone]
-        args = ["--recurse-submodules", "--single-branch", "--depth=1"]
-    [".config/zsh/plugins/zsh-abbr".pull]
-        args = ["--recurse-submodules", "--depth=1"]
+type = "git-repo"
+url = "https://github.com/olets/zsh-abbr.git"
+refreshPeriod = "168h"
+[".config/zsh/plugins/zsh-abbr".clone]
+args = ["--recurse-submodules", "--single-branch", "--depth=1"]
+[".config/zsh/plugins/zsh-abbr".pull]
+args = ["--recurse-submodules", "--depth=1"]
 
 [".config/zsh/plugins/zsh-eza"]
-    type = "git-repo"
-    url = "https://github.com/z-shell/zsh-eza.git"
-    refreshPeriod = "168h"
-    [".config/zsh/plugins/zsh-eza".clone]
-        args = ["--branch=main", "--depth=1"]
+type = "git-repo"
+url = "https://github.com/z-shell/zsh-eza.git"
+refreshPeriod = "168h"
+[".config/zsh/plugins/zsh-eza".clone]
+args = ["--branch=main", "--depth=1"]
 
 [".config/zsh/site-functions/_timew"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
-    refreshPeriod = "168h"
+type = "file"
+url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
+refreshPeriod = "168h"

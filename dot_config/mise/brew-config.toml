@@ -4,7 +4,6 @@ usage = "latest"
 go = "latest"
 python = "3.13"
 uv = "latest"
-"pipx:git+https://github.com/negineri/moro.git" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:prettier" = "latest"
 

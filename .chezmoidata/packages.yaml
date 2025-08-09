@@ -18,10 +18,10 @@ packages:
       - "gcc"
       - "hashicorp/tap/terraform"
       - "docker"
+      - "gh"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"
-      - "amethyst"
       - "zotero"
       - "blackhole-2ch"
       - "visual-studio-code"
@@ -37,6 +37,7 @@ packages:
       - "obs"
       - "gns3"
       - "obsidian"
+      - "nikitabobko/tap/aerospace"
     taps:
       - "hashicorp/tap"
     scripts:

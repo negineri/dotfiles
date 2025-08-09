@@ -10,7 +10,13 @@ function configure_obvim() {
     defaults write md.obsidian ApplePressAndHoldEnabled -bool false
 }
 
+function configure_aerospace() {
+    echo "Configuring Aerospace"
+    defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+}
+
 {{ if eq .chezmoi.os "darwin" -}}
 defaults read com.microsoft.VSCode ApplePressAndHoldEnabled &>/dev/null || configure_vsvim
 defaults read md.obsidian ApplePressAndHoldEnabled &>/dev/null || configure_obvim
+defaults read com.apple.dock expose-group-apps &>/dev/null || configure_aerospace
 {{ end -}}

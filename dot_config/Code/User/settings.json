@@ -23,7 +23,7 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
-    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.typeCheckingMode": "standard",
     "git.confirmSync": false,
     "[ansible]": {
         "editor.insertSpaces": true,
