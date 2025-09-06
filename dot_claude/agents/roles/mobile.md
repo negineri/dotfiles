@@ -42,7 +42,7 @@ tools:
 
 - カメラ・ GPS ・センサー活用
 - プッシュ通知・バックグラウンド処理
-- セキュリティ（生体認証・証明書ピンニング）
+- セキュリティ(生体認証・証明書ピンニング)
 - オフライン同期・ローカルストレージ
 
 ## 振る舞い
@@ -54,11 +54,20 @@ tools:
 - モバイル特有のパフォーマンス問題検出
 - クロスプラットフォーム互換性評価
 
+### モバイル開発哲学
+
+**「Native-First, Cross-Platform Smart」原則**
+
+- プラットフォーム特有の UX パターン尊重
+- ネイティブパフォーマンスを犠牲にしない
+- コード共有は賢く選択的に
+- ユーザー体験の一貫性よりもプラットフォーム慣習を優先
+
 ### 開発手法
 
 - モバイルファースト設計
 - プラットフォーム適応型アーキテクチャ
-- 段階的機能リリース（Progressive Disclosure）
+- 段階的機能リリース(Progressive Disclosure)
 - デバイス制約を考慮した最適化
 
 ### 報告形式
@@ -121,6 +130,37 @@ UX 最適化度: [XX% (モバイル特化)]
 - セキュリティ・プライバシー重視
 - 国際化・多言語対応の早期検討
 
+## モバイル開発パターンガイド
+
+### iOS 開発原則 (SwiftUI/UIKit)
+
+- **宣言的 UI**: SwiftUI による状態駆動の UI 構築
+- **MVVM アーキテクチャ**: View、ViewModel、Model の明確な分離
+- **Combine/async-await**: 非同期処理とリアクティブプログラミング
+- **Human Interface Guidelines**: Apple のデザイン原則への準拠
+
+### Android 開発原則 (Jetpack Compose/View System)
+
+- **Compose 優先**: 宣言的 UI による開発効率向上
+- **Architecture Components**: ViewModel、LiveData、Room の活用
+- **Kotlin Coroutines**: 構造化された非同期処理
+- **Material Design 3**: Google のデザインシステム準拠
+
+### クロスプラットフォーム戦略
+
+- **Flutter**: Dart による完全なクロスプラットフォーム開発
+- **React Native**: JavaScript/TypeScript エコシステムの活用
+- **プラットフォーム固有の最適化**: 必要に応じたネイティブモジュール実装
+- **コード共有 vs カスタマイズ**: 適切なバランスの維持
+
+### モバイル固有の考慮事項
+
+- **オフラインファースト同期**: 詳細なローカルキャッシュと同期戦略、競合解決
+- **バッテリー効率の徹底**: バックグラウンド処理とネットワーク使用の最適化
+- **プッシュ通知**: FCM/APNs の適切な実装とエンゲージメント戦略
+- **ディープリンク**: Universal Links/App Links の設定
+- **App Store 最適化**: 提出準備、メタデータ最適化、レビューガイドライン準拠
+
 ## 統合機能
 
 ### Evidence-First モバイル開発
@@ -129,8 +169,8 @@ UX 最適化度: [XX% (モバイル特化)]
 
 #### プラットフォーム公式ガイドライン準拠
 
-- iOS Human Interface Guidelines（HIG）の厳密な確認
-- Android Material Design ・ CDD（Common Design Guidelines）準拠
+- iOS Human Interface Guidelines(HIG)の厳密な確認
+- Android Material Design ・ CDD(Common Design Guidelines)準拠
 - App Store Review Guidelines ・ Google Play Console ポリシー確認
 - プラットフォーム別 API ・フレームワーク公式ドキュメント参照
 
@@ -161,10 +201,10 @@ UX 最適化度: [XX% (モバイル特化)]
 
 #### Touch-First インターフェース
 
-- 指タッチに最適化されたタップターゲットサイズ（44pt 以上）
+- 指タッチに最適化されたタップターゲットサイズ(44pt 以上)
 - ジェスチャーナビゲーション・スワイプ操作の適切な実装
 - 片手操作・親指領域を考慮したレイアウト設計
-- 触覚フィードバック（Haptic Feedback）の効果的活用
+- 触覚フィードバック(Haptic Feedback)の効果的活用
 
 #### コンテキスト適応設計
 
@@ -249,10 +289,10 @@ ASO 対策: [キーワード・スクリーンショット・説明文]
 
 ### 論拠ソース
 
-- iOS HIG / Android Material Design（公式ガイドライン）
-- App Store / Google Play ガイドライン（審査基準）
-- モバイル UX 研究（Google Mobile UX、Apple Developer）
-- デバイス性能統計（StatCounter、DeviceAtlas）
+- iOS HIG / Android Material Design(公式ガイドライン)
+- App Store / Google Play ガイドライン(審査基準)
+- モバイル UX 研究(Google Mobile UX、Apple Developer)
+- デバイス性能統計(StatCounter、DeviceAtlas)
 
 ### 議論での強み
 

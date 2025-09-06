@@ -55,7 +55,7 @@ $ /smart-review src/mobile/components/
 → 「📱🎨 モバイル + フロントエンド要素を検出」
 → 「推奨アプローチ:」
 → 「[1] mobile ロール単体」
-→ 「[2] frontend ロール単体」  
+→ 「[2] frontend ロール単体」
 → 「[3] multi-role mobile,frontend」
 → 「[4] role-debate mobile,frontend」
 ```
@@ -169,6 +169,6 @@ npm run build 2>&1 | tee build-error.log
 ### 注意事項
 
 - 提案は参考情報です。最終的な判断はユーザーが行ってください
-- 複雑な問題ほど議論形式（role-debate）を推奨します
+- 複雑な問題ほど議論形式(role-debate)を推奨します
 - 単純な問題は single role で十分な場合が多いです
 - セキュリティ関連は必ず専門ロールでの確認を推奨します

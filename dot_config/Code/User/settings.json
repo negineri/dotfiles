@@ -99,14 +99,8 @@
         "--fast"
     ],
     "git.allowForcePush": true,
-    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvInCurrentTerminal": false,
     "yaml.maxItemsComputed": 15000,
-    "python.analysis.diagnosticSeverityOverrides": {
-        "reportUnknownMemberType": "information"
-    },
-    "flake8.args": [
-        "--ignore=E501"
-    ],
     "window.autoDetectColorScheme": true,
     "remote.autoForwardPortsSource": "hybrid",
     "terminal.integrated.defaultProfile.linux": "zsh",
@@ -123,9 +117,6 @@
         "scminput": false,
         "review": true
     },
-    "python.venvFolders": [
-        ".venv"
-    ],
     "hediet.vscode-drawio.theme": "kennedy",
     "hediet.vscode-drawio.appearance": "light",
     "dev.containers.dockerSocketPath": "ssh://code.witenp.com",
@@ -143,4 +134,6 @@
     ],
     "python.analysis.autoImportCompletions": true,
     "github.copilot.nextEditSuggestions.enabled": true,
+    "python.terminal.activateEnvironment": false,
+    "workbench.editor.empty.hint": "hidden",
 }

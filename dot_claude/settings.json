@@ -133,7 +133,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"確認待ち\" with title \"Claude Code\"' && afplay -v 0.3 ~/.claude/assets/confirm.mp3"
+            "command": "osascript -e 'display notification \"確認待ち\" with title \"Claude Code\" sound name \"Tink\"'"
           }
         ]
       }
@@ -148,10 +148,14 @@
           },
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"タスク完了\" with title \"Claude Code\"' && afplay -v 0.3 ~/.claude/assets/perfect.mp3"
+            "command": "osascript -e 'display notification \"タスク完了\" with title \"Claude Code\" sound name \"Tink\"'"
           }
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh"
   }
 }

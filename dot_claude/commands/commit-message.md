@@ -1,6 +1,6 @@
 ## Commit Message
 
-ステージングされた変更（git diff --staged）から適切なコミットメッセージを生成します。git コマンドの実行は行わず、メッセージの生成とクリップボードへのコピーのみを行います。
+ステージングされた変更(git diff --staged)から適切なコミットメッセージを生成します。git コマンドの実行は行わず、メッセージの生成とクリップボードへのコピーのみを行います。
 
 ### 使い方
 
@@ -10,14 +10,14 @@
 
 ### オプション
 
-- `--format <形式>` : メッセージ形式を指定（conventional, gitmoji, angular）
-- `--lang <言語>` : メッセージ言語を強制指定（en, ja）
+- `--format <形式>` : メッセージ形式を指定(conventional, gitmoji, angular)
+- `--lang <言語>` : メッセージ言語を強制指定(en, ja)
 - `--breaking` : Breaking Change の検出と記載
 
 ### 基本例
 
 ```bash
-# ステージングされた変更からメッセージ生成（言語自動判定）
+# ステージングされた変更からメッセージ生成(言語自動判定)
 # メイン候補が自動的にクリップボードにコピーされます
 /commit-message
 
@@ -78,22 +78,28 @@ find . -name "commitlint.config.*" -o -name ".commitlintrc.*" | head -1
 ```javascript
 // commitlint.config.mjs
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'type-enum': [
+    "type-enum": [
       2,
-      'always',
+      "always",
       [
-        'feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore',
-        'wip',      // 作業中
-        'hotfix',   // 緊急修正
-        'release',  // リリース
-        'deps',     // 依存関係更新
-        'config'    // 設定変更
-      ]
-    ]
-  }
-}
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "test",
+        "chore",
+        "wip", // 作業中
+        "hotfix", // 緊急修正
+        "release", // リリース
+        "deps", // 依存関係更新
+        "config", // 設定変更
+      ],
+    ],
+  },
+};
 ```
 
 #### 3. 言語設定の検出
@@ -102,10 +108,10 @@ export default {
 // プロジェクトが日本語メッセージを使用する場合
 export default {
   rules: {
-    'subject-case': [0],  // 日本語対応のため無効化
-    'subject-max-length': [2, 'always', 72]  // 日本語は文字数制限を調整
-  }
-}
+    "subject-case": [0], // 日本語対応のため無効化
+    "subject-max-length": [2, "always", 72], // 日本語は文字数制限を調整
+  },
+};
 ```
 
 #### 4. 既存コミット履歴の分析
@@ -147,21 +153,21 @@ sort | uniq -c | sort -nr
 
 **必須タイプ**:
 
-- `feat`: 新機能（ユーザーに見える機能追加）
+- `feat`: 新機能(ユーザーに見える機能追加)
 - `fix`: バグ修正
 
 **任意タイプ**:
 
 - `build`: ビルドシステムや外部依存関係の変更
-- `chore`: その他の変更（リリースに影響しない）
+- `chore`: その他の変更(リリースに影響しない)
 - `ci`: CI 設定ファイルやスクリプトの変更
 - `docs`: ドキュメントのみの変更
-- `style`: コードの意味に影響しない変更（空白、フォーマット、セミコロンなど）
+- `style`: コードの意味に影響しない変更(空白、フォーマット、セミコロンなど)
 - `refactor`: バグ修正や機能追加を伴わないコード変更
 - `perf`: パフォーマンス改善
 - `test`: テストの追加や修正
 
-### 出力例（英語プロジェクト）
+### 出力例(英語プロジェクト)
 
 ```bash
 $ /commit-message
@@ -180,10 +186,10 @@ feat: implement JWT-based authentication system
 ✅ `git commit -m "feat: implement JWT-based authentication system"` をクリップボードにコピーしました
 ```
 
-**実装例（修正版）**:
+**実装例(修正版)**:
 
 ```bash
-# コミットコマンドを先にクリップボードにコピー（改行なし）
+# コミットコマンドを先にクリップボードにコピー(改行なし)
 printf 'git commit -m "%s"' "$COMMIT_MESSAGE" | pbcopy
 
 # その後でメッセージを表示
@@ -203,7 +209,7 @@ $COMMIT_MESSAGE
 EOF
 ```
 
-### 出力例（日本語プロジェクト）
+### 出力例(日本語プロジェクト)
 
 ```bash
 $ /commit-message
@@ -232,7 +238,7 @@ feat: JWT 認証システムを実装
 
 ### スマート機能
 
-#### 1. 変更内容の自動分類（ステージングされたファイルのみ）
+#### 1. 変更内容の自動分類(ステージングされたファイルのみ)
 
 - 新ファイル追加 → `feat`
 - エラー修正パターン → `fix`
@@ -246,10 +252,10 @@ feat: JWT 認証システムを実装
 - `CONTRIBUTING.md` 内の規約
 - 過去のコミット履歴パターン
 
-#### 3. 言語判定の詳細（ステージングされた変更のみ）
+#### 3. 言語判定の詳細(ステージングされた変更のみ)
 
 ```bash
-# 判定基準（優先順位）
+# 判定基準(優先順位)
 1. git diff --staged の内容から言語を判定
 2. ステージングされたファイルのコメント分析
 3. git log --oneline -20 の言語分析
@@ -258,7 +264,7 @@ feat: JWT 認証システムを実装
 
 #### 4. ステージング分析の詳細
 
-分析に使用する情報（読み取りのみ）:
+分析に使用する情報(読み取りのみ):
 
 - `git diff --staged --name-only` - 変更ファイル一覧
 - `git diff --staged` - 実際の変更内容
@@ -300,9 +306,9 @@ feat(api)!: 認証フローを変更
 
 1. **プロジェクトに合わせる**: 既存のコミット言語に従う
 2. **簡潔性**: 50 文字以内で明確に
-3. **一貫性**: 混在させない（英語なら英語で統一）
+3. **一貫性**: 混在させない(英語なら英語で統一)
 4. **OSS**: オープンソースなら英語推奨
-5. **1 行厳守**: 必ず 1 行のコミットメッセージにする（詳細な説明が必要な場合は PR で補足）
+5. **1 行厳守**: 必ず 1 行のコミットメッセージにする(詳細な説明が必要な場合は PR で補足)
 
 ### よくあるパターン
 

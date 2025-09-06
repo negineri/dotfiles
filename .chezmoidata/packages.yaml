@@ -45,6 +45,7 @@ packages:
       - "emacs-plus"
       - "spacemacs"
       - "org-roam"
+      - "uv"
   linux_server:
     apt:
       - "zsh"
