@@ -1,12 +1,13 @@
 [tools]
-node = "22"
+node = "24"
 usage = "latest"
 go = "latest"
-python = "3.13"
-"npm:@anthropic-ai/claude-code" = "latest"
+python = "3.14"
 "npm:prettier" = "latest"
 "npm:@qwen-code/qwen-code" = "latest"
 "npm:pyright" = "latest"
+"npm:opencode-ai" = "latest"
+"npm:npm-check-updates" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

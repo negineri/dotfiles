@@ -28,7 +28,7 @@ packages:
       - "visual-studio-code"
       - "deepl"
       - "monitorcontrol"
-      - "wireshark"
+      - "wireshark-app"
       - "google-chrome"
       - "slack"
       - "discord"

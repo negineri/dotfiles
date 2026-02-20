@@ -32,3 +32,10 @@ args = ["--branch=main", "--depth=1"]
 type = "file"
 url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
 refreshPeriod = "168h"
+
+[".local/bin/bws"]
+executable = true
+type = "archive-file"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.0.0/bws-aarch64-apple-darwin-2.0.0.zip"
+refreshPeriod = "168h"
+path = "bws"

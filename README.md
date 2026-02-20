@@ -16,7 +16,7 @@ dotfiles powerd by [chezmoi](https://www.chezmoi.io/)
 ### for mac client
 
 ```text
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:negineri/dotfiles.git
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:negineri/dotfiles.git
 open ~/.config/chrome-extensions
 ```
 
@@ -31,7 +31,7 @@ open ~/.config/chrome-extensions
 ### for linux server
 
 ```text
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
 ```
 
 ## profiles
