@@ -3,7 +3,7 @@
 Include ~/.ssh/config_secret
 
 Host *
-  AddKeysToAgent yes
+  AddKeysToAgent no
 {{- if eq .chezmoi.os "darwin" }}
   UseKeychain yes
 {{- end }}

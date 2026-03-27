@@ -105,7 +105,7 @@
     "remote.autoForwardPortsSource": "hybrid",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "editor.fontFamily": "'PlemolJP Console NF', Consolas, 'Courier New', monospace",
-    "workbench.colorTheme": "Default Light Modern",
+    "workbench.colorTheme": "Light Modern",
     "github.copilot.editor.enableAutoCompletions": true,
     "prettier.resolveGlobalModules": true,
     "git.autoStash": true,
@@ -154,4 +154,7 @@
         "*.s3db": "${capture}.${extname}-*"
     },
     "ansible.lightspeed.enabled": false,
+    "[csv]": {
+        "editor.inlayHints.maximumLength": 0
+    },
 }

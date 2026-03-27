@@ -20,6 +20,8 @@ packages:
       - "docker"
       - "gh"
       - "gemini-cli"
+      - "oci-cli"
+      - "gnupg"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"

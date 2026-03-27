@@ -564,7 +564,17 @@
             "metadata-bookmark": false,
             "sanity": true,
             "tags": "japanese",
-            "ugoira": true
+            "ugoira": true,
+            "directory": [
+                "pixiv",
+                "{user[id]} {user[account]}",
+                "{id}_{title}"
+            ],
+            "filename": {
+                "page_count > 999": "p{num:04}.{extension}",
+                "page_count > 99": "p{num:03}.{extension}",
+                "": "p{num}.{extension}"
+            }
         },
         "pixiv-novel": {
             "refresh-token": null,
