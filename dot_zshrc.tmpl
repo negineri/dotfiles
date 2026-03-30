@@ -19,6 +19,7 @@ FPATH="$HOME/.config/zsh/site-functions:${FPATH}"
 {{ if eq .chezmoi.os "darwin" -}}
 alias dircolors='gdircolors'
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export DOCKER_HOST=ssh://code.witenp.com
 {{ end -}}
 
 autoload -Uz compinit && compinit
@@ -76,7 +77,6 @@ done
 # abbr -S tt='taskwarrior-tui' 1> /dev/null
 # abbr -S tw='timew' 1> /dev/null
 
-export DOCKER_HOST=ssh://code.witenp.com
 
 # Added by Antigravity
 export PATH="/Users/negineri/.antigravity/antigravity/bin:$PATH"
