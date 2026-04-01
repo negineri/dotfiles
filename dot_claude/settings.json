@@ -19,16 +19,13 @@
       "LS(**)",
       "MultiEdit(**)",
       "Read(**)",
-      "TodoRead()",
       "TodoWrite(**)",
       "WebFetch(domain:*)",
-      "WebSearch(**)",
       "Write(**)"
     ],
     "deny": [
       "Bash(* | bash)",
       "Bash(* | sh)",
-      "Bash(:(){ :|:& };:)",
       "Bash(> /dev/sda*)",
       "Bash(apt-get install*)",
       "Bash(brew install*)",
@@ -157,5 +154,8 @@
   "statusLine": {
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
+  },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
   }
 }
