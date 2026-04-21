@@ -13,3 +13,4 @@ rust = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
+env_shell_expand = true

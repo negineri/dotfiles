@@ -157,4 +157,5 @@
     "[csv]": {
         "editor.inlayHints.maximumLength": 0
     },
+    "claudeCode.preferredLocation": "panel",
 }

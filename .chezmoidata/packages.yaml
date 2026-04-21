@@ -22,6 +22,7 @@ packages:
       - "gemini-cli"
       - "oci-cli"
       - "gnupg"
+      - "terramate"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"
