@@ -291,6 +291,35 @@
             "include": "photos",
             "videos": true
         },
+        "fantia": {
+            "filename": "{num:>03}-{filename}.{extension}",
+            "directory": [
+                "fantia",
+                "{fanclub_name}",
+                "posts",
+                "{post_id}_{post_title[b:225]}",
+                "{plan['name']}"
+            ],
+            "path-strip": ". ",
+            "metadata": true,
+            "skip": "abort:100",
+            "postprocessors": [
+                {
+                    "name": "metadata",
+                    "event": "post",
+                    "filename": "{post_title[b:240]}.txt",
+                    "#": "write text content",
+                    "format": [
+                        "{comment:?//}",
+                        "{content_title:?//}",
+                        "{content_comment:?//}",
+                        "{html:?//}",
+                        "{text:?//}",
+                        "{excerpt:?//}"
+                    ]
+                }
+            ]
+        },
         "fanbox": {
             "cookies": null,
             "comments": true,
