@@ -295,7 +295,7 @@
             "filename": "{num:>03}-{filename}.{extension}",
             "directory": [
                 "fantia",
-                "{fanclub_name}",
+                "{fanclub_id}_{fanclub_name}",
                 "posts",
                 "{post_id}_{post_title[b:225]}",
                 "{plan['name']}"
