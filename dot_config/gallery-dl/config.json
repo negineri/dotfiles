@@ -297,7 +297,7 @@
                 "fantia",
                 "{fanclub_id}_{fanclub_name}",
                 "posts",
-                "{post_id}_{post_title[b:205]}",
+                "{post_id}_{post_title[b:225]}",
                 "{plan['name']}"
             ],
             "path-strip": ". ",
@@ -307,7 +307,7 @@
                 {
                     "name": "metadata",
                     "event": "post",
-                    "filename": "{post_title[b:220]}.txt",
+                    "filename": "{post_title[b:240]}.txt",
                     "#": "write text content",
                     "format": [
                         "{comment:?//}",
@@ -331,7 +331,7 @@
                 "fanbox",
                 "{creatorId}",
                 "posts",
-                "{id}_{title}"
+                "{id}_{title[b:225]}"
             ],
             "postprocessors": [
                 {
