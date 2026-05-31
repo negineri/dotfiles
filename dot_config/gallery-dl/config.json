@@ -50,7 +50,7 @@
         "parent-directory": false,
         "parent-metadata": false,
         "parent-skip": false,
-        "path-restrict": "auto",
+        "path-restrict": "windows",
         "path-replace": "_",
         "path-remove": "\\u0000-\\u001f\\u007f",
         "path-strip": "auto",
