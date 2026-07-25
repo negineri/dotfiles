@@ -15,7 +15,7 @@ dotfiles powerd by [chezmoi](https://www.chezmoi.io/)
 ### for mac client
 
 ```text
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:negineri/dotfiles.git
+PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:negineri/dotfiles.git
 open ~/.config/chrome-extensions
 ```
 

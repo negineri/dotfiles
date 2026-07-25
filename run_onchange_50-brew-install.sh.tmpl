@@ -19,7 +19,7 @@ eval "$(/usr/local/bin/brew shellenv)"
 
 brew bundle --file=/dev/stdin <<EOF
 {{-   with (index .packages .profile) }}{{ if hasKey . "taps" }}{{ range .taps }}
-tap {{ regexReplaceAll "([^ ]*)" . "\"${1}\"" | replace " " ", " }}
+tap {{ regexReplaceAll "([^ ]*)" . "\"${1}\"" | replace " " ", " }}, trusted: true
 {{-   end }}{{ end }}{{ end }}
 {{-   with (index .packages .profile) }}{{ if hasKey . "brews" }}{{ range .brews }}
 {{-     if eq (printf "%.1s" .) "\""}}
