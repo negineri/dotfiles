@@ -6,7 +6,6 @@ dotfiles powerd by [chezmoi](https://www.chezmoi.io/)
 
 - for mac
   - Xcode Command Line Tools
-  - ssh keys
 - for linux
   - curl
   - git

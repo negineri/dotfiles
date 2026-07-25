@@ -7,7 +7,7 @@ exit 0
 # if ! command -v bw >/dev/null; then
     echo "install bitwarden cli"
 {{- if eq .chezmoi.os "darwin" }}
-    curl -L -o /tmp/bw.zip "https://github.com/bitwarden/clients/releases/download/cli-v2026.1.0/bw-macos-arm64-2026.1.0.zip"
+    curl -L -o /tmp/bw.zip "https://github.com/bitwarden/clients/releases/download/cli-v2026.7.0/bw-macos-arm64-2026.7.0.zip"
     unzip -o /tmp/bw.zip -d /tmp
     mkdir -p $HOME/.local/bin
     mv /tmp/bw $HOME/.local/bin/bw
