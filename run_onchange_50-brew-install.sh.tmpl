@@ -23,12 +23,12 @@ tap {{ regexReplaceAll "([^ ]*)" . "\"${1}\"" | replace " " ", " }}, trusted: tr
 {{-   end }}{{ end }}{{ end }}
 {{-   with (index .packages .profile) }}{{ if hasKey . "brews" }}{{ range .brews }}
 {{-     if eq (printf "%.1s" .) "\""}}
-brew {{ . }}
+brew {{ . }}, trusted: true
 {{-     else}}
-brew {{ . | quote }}
+brew {{ . | quote }}, trusted: true
 {{-     end}}
 {{-   end }}{{ end }}{{ end }}
 {{-   with (index .packages .profile) }}{{ if hasKey . "casks" }}{{ range .casks }}
-cask {{ . | quote }}
+cask {{ . | quote }}, trusted: true
 {{-   end }}{{ end }}{{ end }}
 EOF
