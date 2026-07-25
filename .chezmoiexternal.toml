@@ -28,16 +28,11 @@ refreshPeriod = "168h"
 [".config/zsh/plugins/zsh-eza".clone]
 args = ["--branch=main", "--depth=1"]
 
-[".config/zsh/site-functions/_timew"]
-type = "file"
-url = "https://raw.githubusercontent.com/ianmkenney/timewarrior_zsh_completion/main/_timew"
-refreshPeriod = "168h"
-
 {{- if eq .chezmoi.os "darwin" }}
 [".local/bin/bws"]
 executable = true
 type = "archive-file"
-url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.0.0/bws-aarch64-apple-darwin-2.0.0.zip"
+url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-aarch64-apple-darwin-2.1.0.zip"
 refreshPeriod = "168h"
 path = "bws"
 {{- end }}

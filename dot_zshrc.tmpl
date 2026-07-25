@@ -27,10 +27,10 @@ autoload -U +X bashcompinit && bashcompinit
 
 # setopt histignorealldups sharehistory
 
-## Keep 100000 lines of history within the shell and save it to ~/.zsh_history:
+## Keep 10000 lines of history within the shell and save it to ~/.zsh_history:
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE=10000
+export SAVEHIST=10000
 setopt hist_ignore_space
 setopt hist_ignore_dups
 
@@ -67,20 +67,11 @@ export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 eval "$(~/.local/bin/mise activate zsh)"
 source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-# source ~/.config/zsh/plugins/zsh-abbr/zsh-abbr.zsh
 source ~/.config/zsh/plugins/zsh-eza/zsh-eza.plugin.zsh
 
 for file in ~/.config/zsh/sync/*.zsh; do
   source $file
 done
-
-# abbr -S --force ls='eza $eza_params' 1> /dev/null
-# abbr -S tt='taskwarrior-tui' 1> /dev/null
-# abbr -S tw='timew' 1> /dev/null
-
-
-# Added by Antigravity
-export PATH="/Users/negineri/.antigravity/antigravity/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

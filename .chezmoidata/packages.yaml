@@ -8,18 +8,12 @@ packages:
       - "ghq"
       - "fzf"
       - "tmux"
-      - "transcrypt"
-      - "task"
-      - "taskwarrior-tui"
-      - "timewarrior"
-      - "taskopen"
       - "gnu-tar"
       - "ripgrep"
       - "gcc"
       - "hashicorp/tap/terraform"
       - "docker"
       - "gh"
-      - "gemini-cli"
       - "oci-cli"
       - "gnupg"
       - "terramate"
@@ -30,7 +24,6 @@ packages:
       - "blackhole-2ch"
       - "visual-studio-code"
       - "deepl"
-      - "monitorcontrol"
       - "wireshark-app"
       - "google-chrome"
       - "slack"
@@ -45,9 +38,6 @@ packages:
     taps:
       - "hashicorp/tap"
     scripts:
-      - "emacs-plus"
-      - "spacemacs"
-      - "org-roam"
       - "uv"
   linux_server:
     apt:
@@ -63,10 +53,5 @@ packages:
       - "fzf"
       - "tmux"
       - "vim"
-      - "taskwarrior"
-      - "timewarrior"
     scripts:
       - "eza"
-      - "taskopen"
-      - "transcrypt"
-      - "taskwarrior-tui"

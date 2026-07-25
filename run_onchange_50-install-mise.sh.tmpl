@@ -10,7 +10,7 @@ function install_mise() {
 
 function update_mise() {
     echo "Updating Mise..."
-    mise self-update
+    mise self-update -y
 }
 
 command -v mise 1>/dev/null || install_mise
