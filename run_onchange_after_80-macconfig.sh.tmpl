@@ -15,8 +15,28 @@ function configure_aerospace() {
     defaults write com.apple.dock expose-group-apps -bool true && killall Dock
 }
 
+function configure_common() {
+    if [ "$(defaults read com.apple.AppleMultitouchTrackpad Clicking)" -ne "1" ]; then
+        defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
+    fi
+    defaults read com.apple.dock autohide &>/dev/null || defaults write com.apple.dock autohide -bool true && killall Dock
+    if [ ! "$(defaults read com.apple.inputmethod.Kotoeri)" ]; then
+        defaults write com.apple.inputmethod.Kotoeri 'JIMDictionaryTrainerLastProcessedFileID' -int 0
+        defaults write com.apple.inputmethod.Kotoeri 'JIMDictionaryTrainerLastProcessedRecordNumber' -int 0
+        defaults write com.apple.inputmethod.Kotoeri 'JIMPrefConvertWithPunctuationKey' -int 0
+        defaults write com.apple.inputmethod.Kotoeri 'JIMPrefLiveConversionKey' -int 0
+        defaults write com.apple.inputmethod.Kotoeri 'JIMPrefShiftKeyActionKey' -int 1
+        defaults write com.apple.inputmethod.Kotoeri 'JIMPrefVersionKey' -int 1
+        defaults write com.apple.inputmethod.Kotoeri 'JIMPrefWindowsModeKey' -int 1
+    fi
+    defaults read com.apple.dock "mru-spaces" &>/dev/null || defaults write com.apple.dock "mru-spaces" -bool false && killall Dock
+    defaults read com.apple.WindowManager EnableStandardClickToShowDesktop &>/dev/null || defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false && killall WindowManager
+    defaults read -g com.apple.keyboard.fnState &>/dev/null || defaults write -g com.apple.keyboard.fnState -bool true
+}
+
 {{ if eq .chezmoi.os "darwin" -}}
 defaults read com.microsoft.VSCode ApplePressAndHoldEnabled &>/dev/null || configure_vsvim
 defaults read md.obsidian ApplePressAndHoldEnabled &>/dev/null || configure_obvim
 defaults read com.apple.dock expose-group-apps &>/dev/null || configure_aerospace
+configure_common
 {{ end -}}

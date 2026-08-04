@@ -35,6 +35,7 @@ packages:
       - "gns3"
       - "obsidian"
       - "nikitabobko/tap/aerospace"
+      - "betterdisplay"
     taps:
       - "hashicorp/tap"
     scripts:
