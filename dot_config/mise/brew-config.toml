@@ -1,6 +1,5 @@
 [tools]
-node = "24"
-usage = "latest"
+node = "26"
 go = "latest"
 python = "3.14"
 "npm:prettier" = "latest"
@@ -11,6 +10,7 @@ python = "3.14"
 ruby = "latest"
 rust = "latest"
 "npm:pnpm" = "latest"
+usage = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
