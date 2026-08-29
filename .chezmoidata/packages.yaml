@@ -41,7 +41,7 @@ packages:
     scripts:
       - "uv"
       - "pnpm"
-  linux_server:
+  debian_server:
     apt:
       - "zsh"
       - "fzf"
@@ -49,7 +49,7 @@ packages:
       - "vim"
     scripts:
       - "eza"
-  linux_client:
+  debian_client:
     apt:
       - "zsh"
       - "fzf"

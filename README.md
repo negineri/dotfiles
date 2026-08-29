@@ -30,11 +30,11 @@ open ~/.config/chrome-extensions
 ### for linux server
 
 ```text
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
+PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
 ```
 
 ## profiles
 
 - darwin_client
-- linux_client
-- linux_server
+- debian_client
+- debian_server

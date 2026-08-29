@@ -10,7 +10,7 @@
 {{-   $rootless = .rootless }}
 {{-   $decrypt = .decrypt }}
 {{- else if eq .chezmoi.hostname "fugaku" }}
-{{-   $profile = "linux_client" }}
+{{-   $profile = "debian_client" }}
 {{-   $client = true }}
 {{-   $decrypt = true }}
 {{- else if eq .chezmoi.os "darwin" }}
@@ -18,11 +18,11 @@
 {{-   $client = true }}
 {{-   $decrypt = true }}
 {{- else if (promptBool "Client PC?" false) }}
-{{-   $profile = "linux_client" }}
+{{-   $profile = "debian_client" }}
 {{-   $client = true }}
 {{-   $decrypt = true }}
 {{- else  }}
-{{-   $profile = "linux_server" }}
+{{-   $profile = "debian_server" }}
 {{- end }}
 
 {{- if $interactive }}
