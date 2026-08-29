@@ -40,6 +40,7 @@ packages:
       - "hashicorp/tap"
     scripts:
       - "uv"
+      - "pnpm"
   linux_server:
     apt:
       - "zsh"

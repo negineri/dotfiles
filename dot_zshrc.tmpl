@@ -73,5 +73,15 @@ for file in ~/.config/zsh/sync/*.zsh; do
   source $file
 done
 
+# pnpm
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{ end -}}
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

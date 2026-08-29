@@ -9,7 +9,6 @@ python = "3.14"
 "npm:npm-check-updates" = "latest"
 ruby = "latest"
 rust = "latest"
-"npm:pnpm" = "latest"
 usage = "latest"
 
 [settings]
