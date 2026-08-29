@@ -9,6 +9,7 @@ dotfiles powerd by [chezmoi](https://www.chezmoi.io/)
 - for linux
   - curl
   - git
+  - unzip (for client)
 
 ## setup
 
