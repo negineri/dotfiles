@@ -1,0 +1,8 @@
+#!/bin/bash
+
+{{- if not .decrypt }}
+exit 0
+{{- end }}
+
+cd {{ .chezmoi.sourceDir }}
+git remote set-url origin git@github.com:negineri/dotfiles.git && echo "update chezmoi remote url"
