@@ -17,6 +17,7 @@ packages:
       - "oci-cli"
       - "gnupg"
       - "terramate"
+      - "unar"
     casks:
       - "font-plemol-jp-nf"
       - "wezterm"
