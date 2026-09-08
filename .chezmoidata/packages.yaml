@@ -57,3 +57,4 @@ packages:
       - "vim"
     scripts:
       - "eza"
+      - "pnpm"
