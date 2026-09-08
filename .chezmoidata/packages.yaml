@@ -49,6 +49,7 @@ packages:
       - "vim"
     scripts:
       - "eza"
+      - "pnpm"
   debian_client:
     apt:
       - "zsh"
