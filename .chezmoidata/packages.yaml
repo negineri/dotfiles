@@ -57,6 +57,8 @@ packages:
       - "fzf"
       - "tmux"
       - "vim"
+      - "wl-clipboard"
+      - "xclip"
     scripts:
       - "eza"
       - "pnpm"

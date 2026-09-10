@@ -16,4 +16,14 @@ set-option -g history-limit 10000
 {{ if .client -}}
 set -g set-clipboard on
 set-option -g prefix C-t
+
+## コピーモード (vi) で選択したテキストをシステムクリップボードにコピーする
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+{{ if eq .chezmoi.os "darwin" -}}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+{{ else -}}
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy 2>/dev/null || xclip -selection clipboard"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "wl-copy 2>/dev/null || xclip -selection clipboard"
+{{ end -}}
 {{ end -}}
