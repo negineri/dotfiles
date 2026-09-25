@@ -542,6 +542,38 @@
             "host": "localhost",
             "port": 6414
         },
+        "pawchive": {
+            "username": "",
+            "password": "",
+            "sleep-request": "1.0",
+            "archives": false,
+            "archives-format": "list",
+            "comments": false,
+            "deferred": true,
+            "domain": null,
+            "duplicates": false,
+            "expand": false,
+            "favorites": "artist",
+            "files": [
+                "file",
+                "attachments",
+                "inline"
+            ],
+            "max-posts": null,
+            "metadata": true,
+            "original": true,
+            "previews": false,
+            "revisions": false,
+            "order-revisions": "desc",
+            "filename": "{num:>02}_{filename[:180]}.{extension}",
+            "directory": [
+                "pawchive",
+                "{service}",
+                "{user}",
+                "posts",
+                "{id}_{title[b:180]}"
+            ]
+        },
         "paheal": {
             "metadata": false
         },
