@@ -158,16 +158,7 @@
         "editor.inlayHints.maximumLength": 0
     },
     "claudeCode.preferredLocation": "panel",
-    "yaml.disableSchemaDetection": [
-        "**/docker-compose.yml",
-        "**/docker-compose.yaml",
-        "**/docker-compose.*.yml",
-        "**/docker-compose.*.yaml",
-        "**/compose.yml",
-        "**/compose.yaml",
-        "**/compose.*.yml",
-        "**/compose.*.yaml"
-    ],
+    "yaml.disableSchemaDetection": [],
     "json.schemaDownload.trustedDomains": {
         "https://schemastore.azurewebsites.net/": true,
         "https://raw.githubusercontent.com/microsoft/vscode/": true,
@@ -178,4 +169,5 @@
         "https://developer.microsoft.com/json-schemas/": true,
         "https://biomejs.dev": true
     },
+    "docker.extension.enableComposeLanguageServer": false,
 }
