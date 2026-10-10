@@ -63,14 +63,8 @@
         "metadata-url": null,
         "metadata-version": null,
         "sleep": 0,
-        "sleep-request": [
-            0.5,
-            1.5
-        ],
-        "sleep-extractor": [
-            0.5,
-            1.5
-        ],
+        "sleep-request": 0,
+        "sleep-extractor": 0,
         "sleep-429": 60.0,
         "actions": [],
         "input": null,
@@ -357,7 +351,8 @@
                     "event": "post",
                     "filename": "metadata.json"
                 }
-            ]
+            ],
+            "sleep": "0.5-1.5"
         },
         "fansly": {
             "token": "",
@@ -578,7 +573,8 @@
                 "{user}",
                 "posts",
                 "{id}_{title[b:180]}"
-            ]
+            ],
+            "sleep": "0.5-1.5"
         },
         "paheal": {
             "metadata": false
