@@ -63,8 +63,14 @@
         "metadata-url": null,
         "metadata-version": null,
         "sleep": 0,
-        "sleep-request": 0,
-        "sleep-extractor": 0,
+        "sleep-request": [
+            0.5,
+            1.5
+        ],
+        "sleep-extractor": [
+            0.5,
+            1.5
+        ],
         "sleep-429": 60.0,
         "actions": [],
         "input": null,
