@@ -636,7 +636,7 @@
             "filename": {
                 "page_count > 999": "{id}_p{num:04}.{extension}",
                 "page_count > 99": "{id}_p{num:03}.{extension}",
-                "": "{id}_p{num}.{extension}"
+                "": "{id}_p{num:02}.{extension}"
             }
         },
         "pixiv-novel": {
