@@ -3,9 +3,6 @@ key.txt.age
 scripts
 .config/mise/brewless-config.toml
 .config/mise/brew-config.toml
-{{- if ne .profile "darwin_client" }}
+{{- if and (ne .profile "darwin_client") (ne .profile "debian_client") }}
 .wezterm.lua
-{{- end }}
-{{- if not .decrypt }}
-.ssh/config_secret
 {{- end }}

@@ -59,6 +59,9 @@ packages:
       - "vim"
       - "wl-clipboard"
       - "xclip"
+      - "fontconfig"
+      - "unzip"
     scripts:
       - "eza"
       - "pnpm"
+      - "plemoljp"

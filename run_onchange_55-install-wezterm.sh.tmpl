@@ -1,0 +1,16 @@
+#!/bin/bash
+{{- if and (eq .chezmoi.os "linux") (eq .profile "debian_client") (not .rootless) }}
+set -euo pipefail
+
+# https://wezterm.org/install/linux.html#using-the-apt-repo
+sudo apt-get install -y ca-certificates curl gnupg
+work_dir=$(mktemp -d)
+trap 'rm -rf "$work_dir"' EXIT
+curl -fsSL --retry 3 https://apt.fury.io/wez/gpg.key -o "$work_dir/wezterm.key"
+gpg --batch --yes --dearmor -o "$work_dir/wezterm-fury.gpg" "$work_dir/wezterm.key"
+sudo install -m 644 "$work_dir/wezterm-fury.gpg" /usr/share/keyrings/wezterm-fury.gpg
+echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' \
+    | sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y wezterm
+{{- end }}
