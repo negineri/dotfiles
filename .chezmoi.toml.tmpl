@@ -17,6 +17,9 @@
 {{-   $profile = "darwin_client" }}
 {{-   $client = true }}
 {{-   $decrypt = true }}
+{{- else if eq .chezmoi.os "windows" }}
+{{-   $profile = "windows_client" }}
+{{-   $client = true }}
 {{- else if (promptBool "Client PC?" false) }}
 {{-   $profile = "debian_client" }}
 {{-   $client = true }}
@@ -33,7 +36,14 @@ encryption = "age"
     identity = "~/.config/chezmoi/key.txt"
     recipient = "age1vdrqpsfk7f70fjz83gwqt2yxg5v4lh9x3uxejy9pxvt9w00gsuqsd8y94x"
 [edit]
+{{- if eq .chezmoi.os "windows" }}
+    command = "notepad"
+[interpreters.ps1]
+    command = "powershell"
+    args = ["-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass"]
+{{- else }}
     command = "vim"
+{{- end }}
 [git]
     autoCommit = true
 [data]

@@ -1,0 +1,18 @@
+{{- with (index .packages .profile) }}{{ if not (hasKey . "winget") }}
+exit 0
+{{- end }}{{ end }}
+
+$packages = @(
+{{- with (index .packages .profile) }}{{ if hasKey . "winget" }}{{ range .winget }}
+    {{ . | quote }}
+{{-   end }}{{ end }}{{ end }}
+)
+
+foreach ($id in $packages) {
+    winget list --id $id -e --accept-source-agreements | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        continue
+    }
+    Write-Host "install $id"
+    winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+}

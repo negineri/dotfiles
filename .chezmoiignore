@@ -3,6 +3,21 @@ key.txt.age
 scripts
 .config/mise/brewless-config.toml
 .config/mise/brew-config.toml
-{{- if and (ne .profile "darwin_client") (ne .profile "debian_client") }}
+{{- if and (ne .profile "darwin_client") (ne .profile "debian_client") (ne .profile "windows_client") }}
 .wezterm.lua
+{{- end }}
+{{- if eq .chezmoi.os "windows" }}
+*.sh
+20-setup-bitwarden
+.zprofile
+.zshrc
+.p10k.zsh
+.tmux.conf
+.config/zsh
+.config/zsh/**
+.config/aerospace
+.config/mise
+Library
+{{- else }}
+*.ps1
 {{- end }}

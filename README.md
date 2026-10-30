@@ -34,8 +34,18 @@ open ~/.config/chrome-extensions
 PATH="$HOME/bin:$HOME/.local/bin:$PATH" sh -c "$(curl -fsLS get.chezmoi.io)" -- init --promptDefaults --apply https://github.com/negineri/dotfiles.git
 ```
 
+### for windows client
+
+```text
+winget install -e --id twpayne.chezmoi
+winget install -e --id Git.Git
+# restart shell
+chezmoi init --apply https://github.com/negineri/dotfiles.git
+```
+
 ## profiles
 
+- windows_client
 - darwin_client
 - debian_client
 - debian_server
