@@ -8,6 +8,7 @@ $packages = @(
 {{-   end }}{{ end }}{{ end }}
 )
 
+$failed = @()
 foreach ($id in $packages) {
     winget list --id $id -e --accept-source-agreements | Out-Null
     if ($LASTEXITCODE -eq 0) {
@@ -15,4 +16,13 @@ foreach ($id in $packages) {
     }
     Write-Host "install $id"
     winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+    if ($LASTEXITCODE -ne 0) {
+        $failed += $id
+    }
+}
+
+# exit non-zero so chezmoi retries this script on the next apply
+if ($failed.Count -gt 0) {
+    Write-Host "failed: $($failed -join ', ')"
+    exit 1
 }
