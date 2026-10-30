@@ -90,3 +90,5 @@ packages:
       - "OBSProject.OBSStudio"
       - "Obsidian.Obsidian"
       - "Bitwarden.Bitwarden"
+    scripts:
+      - "plemoljp"
