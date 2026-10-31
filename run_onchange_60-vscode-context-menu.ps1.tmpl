@@ -1,0 +1,24 @@
+{{- if ne .chezmoi.os "windows" }}
+exit 0
+{{- end }}
+
+$code = Join-Path $env:LOCALAPPDATA "Programs\Microsoft VS Code\Code.exe"
+if (-not (Test-Path $code)) {
+    Write-Host "skip vscode context menu: $code not found"
+    exit 0
+}
+
+# "Code で開く" (escaped because Windows PowerShell 5.1 reads BOM-less scripts as ANSI)
+$label = "Code " + [char]0x3067 + [char]0x958B + [char]0x304F
+
+$keys = @{
+    "HKCU:\Software\Classes\Directory\shell\VSCode"            = "`"$code`" `"%V`""
+    "HKCU:\Software\Classes\Directory\Background\shell\VSCode" = "`"$code`" `"%V`""
+}
+
+foreach ($key in $keys.Keys) {
+    New-Item -Force -Path "$key\command" | Out-Null
+    Set-ItemProperty -Path $key -Name "(default)" -Value $label
+    Set-ItemProperty -Path $key -Name "Icon" -Value "`"$code`""
+    Set-ItemProperty -Path "$key\command" -Name "(default)" -Value $keys[$key]
+}
