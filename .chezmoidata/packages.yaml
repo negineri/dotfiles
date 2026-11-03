@@ -77,6 +77,18 @@ packages:
       - "Hashicorp.Terraform"
       - "vim.vim"
       - "jdx.mise"
+      - "Microsoft.PowerShell"
+      - "7zip.7zip"
+      - "Gyan.FFmpeg"
+      - "FastCopy.FastCopy"
+      # Debian needs WSL installed first
+      - "Microsoft.WSL"
+      - "Debian.Debian"
+      - "EclipseAdoptium.Temurin.8.JRE"
+      - "Oracle.JavaRuntimeEnvironment"
+      - "Microsoft.DotNet.DesktopRuntime.10"
+      - "Microsoft.VCRedist.2012.x86"
+      - "Microsoft.VCRedist.2012.x64"
       - "wez.wezterm"
       - "DigitalScholar.Zotero"
       # VS Code's Windows 11 context menu DLL is 32-bit and needs the x86 runtime
@@ -95,5 +107,14 @@ packages:
       - "OBSProject.OBSStudio"
       - "Obsidian.Obsidian"
       - "Bitwarden.Bitwarden"
+      - "Netbird.Netbird"
+      - "Valve.Steam"
+      - "AndreWiethoff.ExactAudioCopy"
+      - "GuinpinSoft.MakeMKV"
+      - "LeawoSoftware.Blu-rayPlayer"
+      - "TobiasErichsen.loopMIDI"
+      - "OpenAI.ChatGPT"
+      # Auto Dark Mode from the Microsoft Store
+      - "XP8JK4HZBVF435"
     scripts:
       - "plemoljp"
