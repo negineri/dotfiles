@@ -1,0 +1,32 @@
+{{- $chezmoi_source_dir := .chezmoi.sourceDir }}
+{{- $config := "brewless-config.toml" }}
+{{- with (index .packages .profile) }}{{ if hasKey . "brews" }}{{ $config = "brew-config.toml" }}{{ end }}{{ end }}
+# {{ $config }} hash: {{ include (printf "dot_config/mise/%s" $config) | sha256sum }}
+
+function Set-UserEnv($name, $value) {
+    if ([Environment]::GetEnvironmentVariable($name, 'User') -ne $value) {
+        [Environment]::SetEnvironmentVariable($name, $value, 'User')
+    }
+}
+
+# mise reads the config straight from the source dir, as the symlink does on the other OSes
+$config = '{{ joinPath $chezmoi_source_dir "dot_config" "mise" $config | replace "/" "\\" }}'
+Set-UserEnv 'MISE_GLOBAL_CONFIG_FILE' $config
+$env:MISE_GLOBAL_CONFIG_FILE = $config
+
+# shims make mise's tools available in every shell without activation
+$shims = "$env:LOCALAPPDATA\mise\shims"
+$userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+if (($userPath -split ';') -notcontains $shims) {
+    Set-UserEnv 'Path' "$shims;$userPath"
+}
+
+# winget puts mise on PATH only for new shells
+$env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
+if (-not (Get-Command mise -ErrorAction SilentlyContinue)) {
+    Write-Host "mise not found"
+    exit 1
+}
+
+mise install -y
+exit $LASTEXITCODE

@@ -76,6 +76,7 @@ packages:
       - "eza-community.eza"
       - "Hashicorp.Terraform"
       - "vim.vim"
+      - "jdx.mise"
       - "wez.wezterm"
       - "DigitalScholar.Zotero"
       # VS Code's Windows 11 context menu DLL is 32-bit and needs the x86 runtime
