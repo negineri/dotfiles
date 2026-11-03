@@ -29,4 +29,10 @@ if (-not (Get-Command mise -ErrorAction SilentlyContinue)) {
 }
 
 mise install -y
+if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+}
+# drop tools removed from the config and their shims
+mise prune -y
+mise reshim
 exit $LASTEXITCODE
