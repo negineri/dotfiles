@@ -1,0 +1,14 @@
+# exit non-zero so chezmoi retries this script once Auto Dark Mode is installed
+$svc = "$env:LOCALAPPDATA\Programs\AutoDarkMode\adm-app\core\AutoDarkModeSvc.exe"
+if (-not (Test-Path $svc)) {
+    Write-Host "Auto Dark Mode not found"
+    exit 1
+}
+
+# the same Run entry Auto Dark Mode writes itself, so its autostart check keeps it
+$run = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+Set-ItemProperty $run -Name AutoDarkMode -Value "`"$svc`""
+
+if (-not (Get-Process AutoDarkModeSvc -ErrorAction SilentlyContinue)) {
+    Start-Process $svc
+}
