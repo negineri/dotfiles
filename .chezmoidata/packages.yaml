@@ -81,7 +81,7 @@ packages:
       - "Microsoft.VisualStudioCode"
       - "DeepL.DeepL"
       - "WiresharkFoundation.Wireshark"
-      - "Google.Chrome"
+      - "Google.Chrome.EXE"
       - "SlackTechnologies.Slack"
       - "Discord.Discord"
       - "Nextcloud.NextcloudDesktop"
