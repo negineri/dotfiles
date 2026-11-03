@@ -5,6 +5,13 @@ Set-ItemProperty $advanced -Name HideFileExt -Type DWord -Value 0
 Set-ItemProperty $advanced -Name Hidden -Type DWord -Value 1
 # open Explorer at This PC instead of Home (1 = This PC, 2 = Home)
 Set-ItemProperty $advanced -Name LaunchTo -Type DWord -Value 1
+# a running Explorer writes its cached HideFileExt and Hidden back on sign-out,
+# so kill it before it can, and let it start again with the new values
+Stop-Process -Name explorer -Force
+Start-Sleep -Seconds 3
+if (-not (Get-Process explorer -ErrorAction SilentlyContinue)) {
+    Start-Process explorer.exe
+}
 
 # turn off "Enhance pointer precision"; takes effect at the next sign-in
 $mouse = "HKCU:\Control Panel\Mouse"
