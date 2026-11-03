@@ -1,0 +1,13 @@
+{{- if not .decrypt }}
+exit 0
+{{- end }}
+
+# chezmoi's private_ attribute does not set ACLs on Windows, so limit ~/.ssh
+# to the current user and SYSTEM; the keys written into it inherit this
+$ssh = Join-Path $HOME ".ssh"
+New-Item -ItemType Directory -Force $ssh | Out-Null
+$user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+icacls $ssh /inheritance:r /grant:r "*${user}:(OI)(CI)F" "*S-1-5-18:(OI)(CI)F" /q
+if ($LASTEXITCODE -ne 0) {
+    exit 1
+}

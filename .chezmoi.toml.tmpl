@@ -20,6 +20,7 @@
 {{- else if eq .chezmoi.os "windows" }}
 {{-   $profile = "windows_client" }}
 {{-   $client = true }}
+{{-   $decrypt = true }}
 {{- else if (promptBool "Client PC?" false) }}
 {{-   $profile = "debian_client" }}
 {{-   $client = true }}
@@ -53,3 +54,7 @@ encryption = "age"
     decrypt = {{ $decrypt }}
 [bitwarden]
     unlock = "auto"
+{{- if eq .chezmoi.os "windows" }}
+    # winget puts bw on PATH only for new shells, so chezmoi calls it by its full path
+    command = '{{ env "LOCALAPPDATA" }}\Microsoft\WinGet\Packages\Bitwarden.CLI_Microsoft.Winget.Source_8wekyb3d8bbwe\bw.exe'
+{{- end }}

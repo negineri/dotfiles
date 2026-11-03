@@ -1,0 +1,36 @@
+{{- if not .decrypt }}
+exit 0
+{{- end }}
+
+# exit non-zero on failure so chezmoi retries this script on the next apply
+$bw = '{{ .chezmoi.config.bitwarden.command }}'
+if (-not (Test-Path $bw)) {
+    Write-Host "install bitwarden cli"
+    winget install --id Bitwarden.CLI -e --silent --accept-source-agreements --accept-package-agreements
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+}
+
+if ((& $bw status | ConvertFrom-Json).status -eq "unauthenticated") {
+    & $bw login
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+}
+
+# chezmoi renders every template before writing any file, so the age key
+# has to be in place before it decrypts .ssh/config_secret and the others
+$key = Join-Path $HOME ".config\chezmoi\key.txt"
+if (-not (Test-Path $key)) {
+    $env:BW_SESSION = & $bw unlock --raw
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+    $notes = & $bw get notes {{ include "dot_config/chezmoi/private_key.txt.tmpl" | regexFind "[0-9a-f-]{36}" }}
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+    New-Item -ItemType Directory -Force (Split-Path $key) | Out-Null
+    [IO.File]::WriteAllText($key, ($notes -join "`n") + "`n", (New-Object Text.UTF8Encoding $false))
+}
