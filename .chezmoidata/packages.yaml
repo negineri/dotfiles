@@ -78,7 +78,9 @@ packages:
       - "vim.vim"
       - "wez.wezterm"
       - "DigitalScholar.Zotero"
-      - "Microsoft.VisualStudioCode"
+      # MERGETASKS adds "Open with Code" to the Explorer context menu (the Windows 11 menu on Windows 11)
+      - id: "Microsoft.VisualStudioCode"
+        override: "/VERYSILENT /NORESTART /MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders"
       - "DeepL.DeepL"
       - "WiresharkFoundation.Wireshark"
       - "Google.Chrome.EXE"

@@ -2,20 +2,30 @@
 exit 0
 {{- end }}{{ end }}
 
+# each entry is a package id, or { id, override } to pass the installer's own arguments
 $packages = @(
 {{- with (index .packages .profile) }}{{ if hasKey . "winget" }}{{ range .winget }}
-    {{ . | quote }}
+{{-   if kindIs "map" . }}
+    @{ id = {{ .id | quote }}; override = '{{ .override }}' }
+{{-   else }}
+    @{ id = {{ . | quote }} }
+{{-   end }}
 {{-   end }}{{ end }}{{ end }}
 )
 
 $failed = @()
-foreach ($id in $packages) {
+foreach ($pkg in $packages) {
+    $id = $pkg.id
     winget list --id $id -e --accept-source-agreements | Out-Null
     if ($LASTEXITCODE -eq 0) {
         continue
     }
     Write-Host "install $id"
-    winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+    if ($pkg.override) {
+        winget install --id $id -e --accept-source-agreements --accept-package-agreements --override $pkg.override
+    } else {
+        winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+    }
     if ($LASTEXITCODE -ne 0) {
         $failed += $id
     }
