@@ -2,11 +2,12 @@
 exit 0
 {{- end }}{{ end }}
 
-# each entry is a package id, or { id, override } to pass the installer's own arguments
+# each entry is a package id, or { id, override, elevate } to pass the installer's own
+# arguments or run winget elevated
 $packages = @(
 {{- with (index .packages .profile) }}{{ if hasKey . "winget" }}{{ range .winget }}
 {{-   if kindIs "map" . }}
-    @{ id = {{ .id | quote }}; override = '{{ .override }}' }
+    @{ id = {{ .id | quote }}; override = '{{ get . "override" }}'; elevate = ${{ if get . "elevate" }}true{{ else }}false{{ end }} }
 {{-   else }}
     @{ id = {{ . | quote }} }
 {{-   end }}
@@ -21,12 +22,22 @@ foreach ($pkg in $packages) {
         continue
     }
     Write-Host "install $id"
+    $wingetArgs = @("install", "--id", $id, "-e", "--accept-source-agreements", "--accept-package-agreements")
     if ($pkg.override) {
-        winget install --id $id -e --accept-source-agreements --accept-package-agreements --override $pkg.override
+        $wingetArgs += @("--override", $pkg.override)
     } else {
-        winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+        $wingetArgs += "--silent"
     }
-    if ($LASTEXITCODE -ne 0) {
+    if ($pkg.elevate) {
+        # MSIX packages with a packaged service only install from an elevated winget
+        # Start-Process joins arguments as is, so quote the ones with spaces
+        $argLine = ($wingetArgs | ForEach-Object { if ($_ -match ' ') { "`"$_`"" } else { $_ } }) -join ' '
+        $code = (Start-Process winget -ArgumentList $argLine -Verb RunAs -Wait -PassThru).ExitCode
+    } else {
+        & winget @wingetArgs
+        $code = $LASTEXITCODE
+    }
+    if ($code -ne 0) {
         $failed += $id
     }
 }

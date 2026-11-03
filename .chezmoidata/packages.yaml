@@ -81,8 +81,10 @@ packages:
       - "7zip.7zip"
       - "Gyan.FFmpeg"
       - "FastCopy.FastCopy"
-      # Debian needs WSL installed first
-      - "Microsoft.WSL"
+      # Debian needs WSL installed first. WSL and ChatGPT ship a packaged
+      # service, which needs an elevated winget
+      - id: "Microsoft.WSL"
+        elevate: true
       - "Debian.Debian"
       - "EclipseAdoptium.Temurin.8.JRE"
       - "Oracle.JavaRuntimeEnvironment"
@@ -113,7 +115,8 @@ packages:
       - "GuinpinSoft.MakeMKV"
       - "LeawoSoftware.Blu-rayPlayer"
       - "TobiasErichsen.loopMIDI"
-      - "OpenAI.ChatGPT"
+      - id: "OpenAI.ChatGPT"
+        elevate: true
       # Auto Dark Mode from the Microsoft Store
       - "XP8JK4HZBVF435"
     scripts:
