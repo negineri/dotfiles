@@ -78,6 +78,8 @@ packages:
       - "vim.vim"
       - "wez.wezterm"
       - "DigitalScholar.Zotero"
+      # VS Code's Windows 11 context menu DLL is 32-bit and needs the x86 runtime
+      - "Microsoft.VCRedist.2015+.x86"
       # MERGETASKS adds "Open with Code" to the Windows 11 Explorer context menu
       - id: "Microsoft.VisualStudioCode"
         override: "/VERYSILENT /NORESTART /MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders"
