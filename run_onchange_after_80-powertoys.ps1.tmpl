@@ -17,12 +17,20 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# coordinates for the sunset to sunrise schedule
+$lightSwitch = "$env:LOCALAPPDATA\Microsoft\PowerToys\LightSwitch\settings.json"
+if (Test-Path $lightSwitch) {
+    $json = Get-Content $lightSwitch -Raw | ConvertFrom-Json
+    $json.properties.latitude.value = "35"
+    $json.properties.longitude.value = "135"
+    [IO.File]::WriteAllText($lightSwitch, ($json | ConvertTo-Json -Depth 10 -Compress))
+}
+
 Start-Process "$dir\PowerToys.exe" -WorkingDirectory $dir
 for ($i = 0; $i -lt 30 -and -not (Get-Process PowerToys.LightSwitchService -ErrorAction SilentlyContinue); $i++) {
     Start-Sleep -Seconds 1
 }
 
 # Microsoft DSC doesn't cover Light Switch yet, so set the schedule through its CLI
-# (dark from 20:00, light from 08:00 by default)
-& "$dir\PowerToys.LightSwitch.Cli.exe" schedule enable --mode fixed-hours
+& "$dir\PowerToys.LightSwitch.Cli.exe" schedule enable --mode sunset-to-sunrise
 exit $LASTEXITCODE
