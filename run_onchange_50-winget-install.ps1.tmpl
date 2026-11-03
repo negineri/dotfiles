@@ -2,12 +2,12 @@
 exit 0
 {{- end }}{{ end }}
 
-# each entry is a package id, or { id, override, elevate } to pass the installer's own
-# arguments or run winget elevated
+# each entry is a package id, or { id, override, scope, elevate } to pass the installer's
+# own arguments, pick the install scope or run winget elevated
 $packages = @(
 {{- with (index .packages .profile) }}{{ if hasKey . "winget" }}{{ range .winget }}
 {{-   if kindIs "map" . }}
-    @{ id = {{ .id | quote }}; override = '{{ get . "override" }}'; elevate = ${{ if get . "elevate" }}true{{ else }}false{{ end }} }
+    @{ id = {{ .id | quote }}; override = '{{ get . "override" }}'; scope = '{{ get . "scope" }}'; elevate = ${{ if get . "elevate" }}true{{ else }}false{{ end }} }
 {{-   else }}
     @{ id = {{ . | quote }} }
 {{-   end }}
@@ -27,6 +27,9 @@ foreach ($pkg in $packages) {
         $wingetArgs += @("--override", $pkg.override)
     } else {
         $wingetArgs += "--silent"
+    }
+    if ($pkg.scope) {
+        $wingetArgs += @("--scope", $pkg.scope)
     }
     if ($pkg.elevate) {
         # MSIX packages with a packaged service only install from an elevated winget

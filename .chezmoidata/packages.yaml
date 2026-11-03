@@ -117,7 +117,8 @@ packages:
       - "TobiasErichsen.loopMIDI"
       - id: "OpenAI.ChatGPT"
         elevate: true
-      # Auto Dark Mode from the Microsoft Store
-      - "XP8JK4HZBVF435"
+      # Light Switch switches between light and dark mode
+      - id: "Microsoft.PowerToys"
+        scope: "user"
     scripts:
       - "plemoljp"

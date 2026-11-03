@@ -1,0 +1,28 @@
+# exit non-zero so chezmoi retries this script once PowerToys is installed
+$dir = "$env:LOCALAPPDATA\PowerToys"
+if (-not (Test-Path "$dir\PowerToys.exe")) {
+    Write-Host "PowerToys not found"
+    exit 1
+}
+
+# a running PowerToys keeps its settings in memory, and its Settings window
+# writes them back, so stop both before changing the file
+Stop-Process -Name PowerToys.Settings, PowerToys -Force -ErrorAction SilentlyContinue
+Start-Sleep -Seconds 3
+
+# start at sign-in and turn on Light Switch
+$app = '{"settings":{"startup":true,"enabled":{"LightSwitch":true}}}'
+& "$dir\PowerToys.DSC.exe" set --resource settings --module App --input $app | Out-Null
+if ($LASTEXITCODE -ne 0) {
+    exit 1
+}
+
+Start-Process "$dir\PowerToys.exe" -WorkingDirectory $dir
+for ($i = 0; $i -lt 30 -and -not (Get-Process PowerToys.LightSwitchService -ErrorAction SilentlyContinue); $i++) {
+    Start-Sleep -Seconds 1
+}
+
+# Microsoft DSC doesn't cover Light Switch yet, so set the schedule through its CLI
+# (dark from 20:00, light from 08:00 by default)
+& "$dir\PowerToys.LightSwitch.Cli.exe" schedule enable --mode fixed-hours
+exit $LASTEXITCODE
