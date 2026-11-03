@@ -3,7 +3,8 @@ node = "20"
 usage = "latest"
 go = "latest"
 python = "latest"
-"go:github.com/x-motemen/ghq" = "latest"
+# windows gets ghq from winget
+"go:github.com/x-motemen/ghq" = { version = "latest", os = ["unix"] }
 uv = "latest"
 
 [settings]
