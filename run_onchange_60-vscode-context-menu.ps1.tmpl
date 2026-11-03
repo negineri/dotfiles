@@ -11,14 +11,29 @@ if (-not (Test-Path $code)) {
 # "Code で開く" (escaped because Windows PowerShell 5.1 reads BOM-less scripts as ANSI)
 $label = "Code " + [char]0x3067 + [char]0x958B + [char]0x304F
 
-$keys = @{
-    "HKCU:\Software\Classes\Directory\shell\VSCode"            = "`"$code`" `"%V`""
-    "HKCU:\Software\Classes\Directory\Background\shell\VSCode" = "`"$code`" `"%V`""
+$legacyKeys = @(
+    "HKCU:\Software\Classes\Directory\shell\VSCode"
+    "HKCU:\Software\Classes\Directory\Background\shell\VSCode"
+)
+
+if (Get-AppxPackage -Name Microsoft.VisualStudioCode) {
+    # Windows 11 menu: VS Code's explorer command shows "Open with Code" only while this key has a Title.
+    # The installer writes it only with the addcontextmenufiles task, which winget's silent install skips.
+    $key = "HKCU:\Software\Classes\VSCodeContextMenu"
+    New-Item -Force -Path $key | Out-Null
+    New-ItemProperty -Force -Path $key -Name "Title" -PropertyType ExpandString -Value $label | Out-Null
+    # the installer removes these on Windows 11 updates anyway; drop them to avoid a duplicate entry
+    foreach ($legacy in $legacyKeys) {
+        if (Test-Path $legacy) {
+            Remove-Item -Recurse -Force $legacy
+        }
+    }
+    exit 0
 }
 
-foreach ($key in $keys.Keys) {
+foreach ($key in $legacyKeys) {
     New-Item -Force -Path "$key\command" | Out-Null
     Set-ItemProperty -Path $key -Name "(default)" -Value $label
     Set-ItemProperty -Path $key -Name "Icon" -Value "`"$code`""
-    Set-ItemProperty -Path "$key\command" -Name "(default)" -Value $keys[$key]
+    Set-ItemProperty -Path "$key\command" -Name "(default)" -Value "`"$code`" `"%V`""
 }
