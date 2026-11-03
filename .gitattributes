@@ -1,0 +1,4 @@
+# keep LF in the working tree even with core.autocrlf, since chezmoi writes
+# files byte for byte and OpenSSH rejects keys with CRLF
+* text=auto eol=lf
+*.age binary
