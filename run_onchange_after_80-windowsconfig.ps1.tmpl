@@ -1,0 +1,6 @@
+$advanced = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+
+# show file extensions
+Set-ItemProperty $advanced -Name HideFileExt -Type DWord -Value 0
+# open Explorer at This PC instead of Home (1 = This PC, 2 = Home)
+Set-ItemProperty $advanced -Name LaunchTo -Type DWord -Value 1
