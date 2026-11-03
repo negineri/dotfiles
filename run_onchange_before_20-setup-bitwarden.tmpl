@@ -17,3 +17,15 @@ exit 0
     rm -f /tmp/bw.zip
     bw login || true
 # fi
+
+# chezmoi renders every template before writing any file, so the age key
+# has to be in place before it decrypts .ssh/config_secret and the others
+key="$HOME/.config/chezmoi/key.txt"
+if [[ ! -f "$key" ]]; then
+    BW_SESSION="$(bw unlock --raw)" || exit 1
+    export BW_SESSION
+    mkdir -p "$(dirname "$key")"
+    (umask 077 && bw get notes {{ include "dot_config/chezmoi/private_key.txt.tmpl" | regexFind "[0-9a-f-]{36}" }} > "$key.tmp") || { rm -f "$key.tmp"; exit 1; }
+    echo >> "$key.tmp"
+    mv "$key.tmp" "$key"
+fi
