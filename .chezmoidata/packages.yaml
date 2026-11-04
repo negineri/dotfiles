@@ -115,6 +115,9 @@ packages:
       - "AndreWiethoff.ExactAudioCopy"
       - "GuinpinSoft.MakeMKV"
       - "LeawoSoftware.Blu-rayPlayer"
+      # MusicBee and Apple Music from the Microsoft Store
+      - "9P4CLT2RJ1RS"
+      - "9PFHDD62MXS1"
       - "TobiasErichsen.loopMIDI"
       - id: "OpenAI.ChatGPT"
         elevate: true
