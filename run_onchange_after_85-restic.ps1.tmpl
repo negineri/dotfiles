@@ -28,31 +28,47 @@ function Invoke-Profile {
     & $resticprofile --config $config @args
 }
 
-Invoke-Profile apple-music.cat config *> $null
+Invoke-Profile base.cat config *> $null
 if ($LASTEXITCODE -ne 0) {
-    Invoke-Profile apple-music.init
+    Invoke-Profile base.init
     if ($LASTEXITCODE -ne 0) {
         exit 1
     }
 }
 
-# restore the library on a new machine, before Apple Music creates an empty one
-$library = Join-Path $HOME "Music\Apple Music"
-if (-not (Test-Path (Join-Path $library "Apple Music Library.musiclibrary"))) {
-    if (Get-Process AppleMusic -ErrorAction SilentlyContinue) {
-        Write-Host "close Apple Music first"
+# restore each library on a new machine, before its app creates an empty one
+$musicbeeSettings = Join-Path $env:LOCALAPPDATA "Packages\50072StevenMayall.MusicBee_kcr266et74avj\LocalCache\Roaming\MusicBee"
+$apps = @(
+    @{ profile = "apple-music"; process = "AppleMusic"; marker = "Apple Music Library.musiclibrary"; paths = @((Join-Path $HOME "Music\Apple Music")) },
+    @{ profile = "musicbee"; process = "MusicBee"; marker = "MusicBeeLibrary.mbl"; paths = @((Join-Path $HOME "Music\MusicBee"), $musicbeeSettings) }
+)
+foreach ($app in $apps) {
+    $library = $app.paths[0]
+    if (Test-Path (Join-Path $library $app.marker)) {
+        continue
+    }
+    if (Get-Process $app.process -ErrorAction SilentlyContinue) {
+        Write-Host "close $($app.process) first"
         exit 1
     }
-    $snapshots = Invoke-Profile apple-music.snapshots --json | ConvertFrom-Json
-    if ($snapshots) {
+    # the profiles share one repository, so pick this profile's snapshots by path
+    $snapshots = Invoke-Profile "$($app.profile).snapshots" --path $library --json | ConvertFrom-Json
+    if (-not $snapshots) {
+        continue
+    }
+    foreach ($path in $app.paths) {
         # restic stores C:\Users\x as /C/Users/x
-        $inSnapshot = "/" + ($library -replace ':', '' -replace '\\', '/')
-        Invoke-Profile apple-music.restore "latest:$inSnapshot" --target $library
+        $inSnapshot = "/" + ($path -replace ':', '' -replace '\\', '/')
+        Invoke-Profile "$($app.profile).restore" "latest:$inSnapshot" --path $library --target $path
         if ($LASTEXITCODE -ne 0) {
             exit 1
         }
     }
 }
 
-Invoke-Profile apple-music.schedule
-exit $LASTEXITCODE
+foreach ($app in $apps) {
+    Invoke-Profile "$($app.profile).schedule"
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+}

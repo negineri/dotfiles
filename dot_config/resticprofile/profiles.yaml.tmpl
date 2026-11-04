@@ -1,19 +1,15 @@
 {{- /* winget can't link restic.exe without Developer Mode, so point at its versioned exe */ -}}
 {{- $restic := glob (printf "%s/Microsoft/WinGet/Packages/restic.restic_Microsoft.Winget.Source_8wekyb3d8bbwe/restic_*_windows_amd64.exe" (env "LOCALAPPDATA" | replace "\\" "/")) -}}
+{{- $home := .chezmoi.homeDir | replace "/" "\\" -}}
 version: "1"
 
 global:
   restic-binary: "{{ if $restic }}{{ last $restic }}{{ end }}"
 
-apple-music:
+base:
   repository: '\\smb01.os1.witenp.com\negineri\backups\restic'
   password-file: password.txt
   backup:
-    # the library is a set of SQLite databases, so only back it up while Apple Music is closed
-    run-before: 'tasklist /fi "imagename eq AppleMusic.exe" | find /i "AppleMusic.exe" > nul && exit 1 || exit 0'
-    source:
-      - '{{ .chezmoi.homeDir | replace "/" "\\" }}\Music\Apple Music'
-    schedule: hourly
     schedule-permission: user_logged_on
   retention:
     after-backup: true
@@ -22,3 +18,24 @@ apple-music:
     keep-weekly: 4
     keep-monthly: 12
     prune: true
+
+apple-music:
+  inherit: base
+  backup:
+    # the library is a set of SQLite databases, so only back it up while Apple Music is closed
+    run-before: 'tasklist /fi "imagename eq AppleMusic.exe" | find /i "AppleMusic.exe" > nul && exit 1 || exit 0'
+    source:
+      - '{{ $home }}\Music\Apple Music'
+    schedule: hourly
+
+musicbee:
+  inherit: base
+  backup:
+    # MusicBee rewrites the library while running, so only back it up while it is closed
+    run-before: 'tasklist /fi "imagename eq MusicBee.exe" | find /i "MusicBee.exe" > nul && exit 1 || exit 0'
+    source:
+      - '{{ $home }}\Music\MusicBee'
+      # the Store version keeps its settings in the package's virtualized AppData
+      - '{{ $home }}\AppData\Local\Packages\50072StevenMayall.MusicBee_kcr266et74avj\LocalCache\Roaming\MusicBee'
+    # half an hour after apple-music so the two prunes don't fight over the repository lock
+    schedule: "*:30"
