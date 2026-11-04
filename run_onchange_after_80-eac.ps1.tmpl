@@ -1,0 +1,28 @@
+# exit non-zero so chezmoi retries this script on the next apply
+# EAC saves its settings when it exits, which would undo the import
+if (Get-Process EAC -ErrorAction SilentlyContinue) {
+    Write-Host "close Exact Audio Copy first"
+    exit 1
+}
+
+# EAC encodes with C:\bin\refalac64.exe; winget keeps qaac under a versioned folder
+$qaac = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\nu774.qaac_Microsoft.Winget.Source_8wekyb3d8bbwe\qaac_*\x64" -Directory -ErrorAction SilentlyContinue |
+    Sort-Object { [version]($_.Parent.Name -replace '^qaac_', '') } |
+    Select-Object -Last 1
+if (-not $qaac) {
+    Write-Host "qaac not found"
+    exit 1
+}
+New-Item -ItemType Directory -Force "C:\bin" | Out-Null
+Copy-Item "$($qaac.FullName)\*" "C:\bin" -Force
+
+# reg import wants a UTF-16 file
+$reg = Join-Path $env:TEMP "eac.reg"
+$settings = @'
+{{ template "eac.reg" . }}
+'@
+[IO.File]::WriteAllText($reg, $settings, [Text.Encoding]::Unicode)
+reg import $reg 2>$null
+$code = $LASTEXITCODE
+Remove-Item $reg
+exit $code
