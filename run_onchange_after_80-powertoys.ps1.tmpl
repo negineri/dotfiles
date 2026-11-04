@@ -12,7 +12,8 @@ Start-Sleep -Seconds 3
 
 # start at sign-in and turn on Light Switch
 $app = '{"settings":{"startup":true,"enabled":{"LightSwitch":true}}}'
-& "$dir\PowerToys.DSC.exe" set --resource settings --module App --input $app | Out-Null
+# Windows PowerShell passes embedded double quotes to native commands unescaped
+& "$dir\PowerToys.DSC.exe" set --resource settings --module App --input ($app -replace '"', '\"') | Out-Null
 if ($LASTEXITCODE -ne 0) {
     exit 1
 }
