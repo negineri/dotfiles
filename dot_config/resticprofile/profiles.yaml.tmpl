@@ -14,7 +14,7 @@ apple-music:
     source:
       - '{{ .chezmoi.homeDir | replace "/" "\\" }}\Music\Apple Music'
     schedule: hourly
-    schedule-permission: user
+    schedule-permission: user_logged_on
   retention:
     after-backup: true
     keep-hourly: 24
