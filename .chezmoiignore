@@ -20,4 +20,5 @@ scripts
 Library
 {{- else }}
 *.ps1
+.config/resticprofile
 {{- end }}

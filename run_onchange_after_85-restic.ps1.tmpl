@@ -1,0 +1,58 @@
+{{- if not .decrypt }}
+exit 0
+{{- end }}
+# profiles.yaml hash: {{ include "dot_config/resticprofile/profiles.yaml.tmpl" | sha256sum }}
+
+# exit non-zero on failure so chezmoi retries this script on the next apply
+$resticprofile = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\creativeprojects.resticprofile_Microsoft.Winget.Source_8wekyb3d8bbwe\resticprofile.exe"
+$dir = Join-Path $HOME ".config\resticprofile"
+$config = Join-Path $dir "profiles.yaml"
+if (-not (Test-Path $resticprofile)) {
+    Write-Host "resticprofile not found"
+    exit 1
+}
+# on a fresh machine profiles.yaml is rendered before winget installs restic
+if (-not (Select-String -Path $config -Pattern 'restic-binary: ".+"' -Quiet)) {
+    Write-Host "restic was not installed when profiles.yaml was written; run chezmoi apply again"
+    exit 1
+}
+
+# keep the repository password readable by the current user and SYSTEM only
+$user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+icacls (Join-Path $dir "password.txt") /inheritance:r /grant:r "*${user}:F" "*S-1-5-18:F" /q
+if ($LASTEXITCODE -ne 0) {
+    exit 1
+}
+
+function Invoke-Profile {
+    & $resticprofile --config $config @args
+}
+
+Invoke-Profile apple-music.cat config *> $null
+if ($LASTEXITCODE -ne 0) {
+    Invoke-Profile apple-music.init
+    if ($LASTEXITCODE -ne 0) {
+        exit 1
+    }
+}
+
+# restore the library on a new machine, before Apple Music creates an empty one
+$library = Join-Path $HOME "Music\Apple Music"
+if (-not (Test-Path (Join-Path $library "Apple Music Library.musiclibrary"))) {
+    if (Get-Process AppleMusic -ErrorAction SilentlyContinue) {
+        Write-Host "close Apple Music first"
+        exit 1
+    }
+    $snapshots = Invoke-Profile apple-music.snapshots --json | ConvertFrom-Json
+    if ($snapshots) {
+        # restic stores C:\Users\x as /C/Users/x
+        $inSnapshot = "/" + ($library -replace ':', '' -replace '\\', '/')
+        Invoke-Profile apple-music.restore "latest:$inSnapshot" --target $library
+        if ($LASTEXITCODE -ne 0) {
+            exit 1
+        }
+    }
+}
+
+Invoke-Profile apple-music.schedule
+exit $LASTEXITCODE

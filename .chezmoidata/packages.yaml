@@ -82,6 +82,8 @@ packages:
       - "Gyan.FFmpeg"
       - "FastCopy.FastCopy"
       - "nu774.qaac"
+      - "restic.restic"
+      - "creativeprojects.resticprofile"
       # Debian needs WSL installed first. WSL and ChatGPT ship a packaged
       # service, which needs an elevated winget
       - id: "Microsoft.WSL"
