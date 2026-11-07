@@ -9,6 +9,7 @@ python = "3.14"
 ruby = "latest"
 rust = "latest"
 usage = "latest"
+ruff = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

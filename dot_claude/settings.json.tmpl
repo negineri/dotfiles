@@ -20,12 +20,7 @@
       "Read(**)",
       "WebFetch"
     ],
-    "ask": [
-      "Bash(git restore*)"
-    ],
     "deny": [
-      "Bash(* | bash)",
-      "Bash(* | sh)",
       "Bash(> /dev/sda*)",
       "Bash(apt-get install*)",
       "Bash(brew install*)",
@@ -34,7 +29,6 @@
       "Bash(chmod 777*)",
       "Bash(chown -R*)",
       "Bash(dd *)",
-      "Bash(format *)",
       "Bash(gem install*)",
       "Bash(gh api --method DELETE*)",
       "Bash(gh auth logout*)",
@@ -64,7 +58,6 @@
       "Bash(gh workflow run*)",
       "Bash(git config --global*)",
       "Bash(git config --system*)",
-      "Bash(git rebase*)",
       "Bash(git reset --hard*)",
       "Bash(mkfs *)",
       "Bash(npm install -g*)",
@@ -79,12 +72,15 @@
       "Bash(rm -rf ~*)",
       "Bash(sudo *)",
       "Bash(yum install*)",
-      "Read(**/.env*)",
       "Read(**/key.txt*)",
       "Read(~/.config/chezmoi/**)",
       "Read(~/.ssh/**)"
+    ],
+    "ask": [
+      "Bash(git restore*)"
     ]
   },
+  "model": "opus",
 {{- if eq .chezmoi.os "darwin" }}
   "hooks": {
     "Notification": [
@@ -122,7 +118,7 @@
   },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "model": "opus",
+  "switchModelsOnFlag": false,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true{{- if .decrypt }},
   "autoMode": {{ include ".chezmoisecrets/claude-automode.json.age" | decrypt | trim | indent 2 | trim }}
