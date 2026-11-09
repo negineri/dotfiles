@@ -170,4 +170,6 @@
         "https://biomejs.dev": true
     },
     "docker.extension.enableComposeLanguageServer": false,
+    "gitlens.graph.details.location": "auto",
+    "chat.viewSessions.orientation": "stacked",
 }
