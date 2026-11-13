@@ -11,6 +11,8 @@ base:
   password-file: password.txt
   backup:
     schedule-permission: user_logged_on
+    # a logged-on task runs in the foreground, so hide its console window
+    schedule-hide-window: true
   retention:
     after-backup: true
     keep-hourly: 24
