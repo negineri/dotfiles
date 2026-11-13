@@ -43,6 +43,15 @@ winget install -e --id Git.Git
 chezmoi init --apply https://github.com/negineri/dotfiles.git
 ```
 
+#### windows client after
+
+- mount the network drive N: on WSL Debian at `/mnt/n` (`nofail` keeps WSL booting while N: is disconnected; run `sudo mount /mnt/n` after reconnecting)
+
+```text
+wsl -d Debian -u root -- sh -c 'mkdir -p /mnt/n && grep -q "^N: " /etc/fstab || echo "N: /mnt/n drvfs defaults,uid=1000,gid=1000,nofail 0 0" >> /etc/fstab'
+wsl -d Debian -u root -- mount /mnt/n
+```
+
 ## profiles
 
 - windows_client
