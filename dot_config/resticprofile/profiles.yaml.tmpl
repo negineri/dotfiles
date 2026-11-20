@@ -1,13 +1,17 @@
 {{- /* winget can't link restic.exe without Developer Mode, so point at its versioned exe */ -}}
 {{- $restic := glob (printf "%s/Microsoft/WinGet/Packages/restic.restic_Microsoft.Winget.Source_8wekyb3d8bbwe/restic_*_windows_amd64.exe" (env "LOCALAPPDATA" | replace "\\" "/")) -}}
 {{- $home := .chezmoi.homeDir | replace "/" "\\" -}}
+{{- $oneDrive := coalesce (env "OneDriveConsumer") (env "OneDrive") -}}
+{{- if not $oneDrive -}}
+{{- fail "OneDrive sync folder is not configured" -}}
+{{- end -}}
 version: "1"
 
 global:
   restic-binary: "{{ if $restic }}{{ last $restic }}{{ end }}"
 
 base:
-  repository: '\\smb01.os1.witenp.com\negineri\backups\restic'
+  repository: '{{ $oneDrive | replace "'" "''" }}\Backups\restic'
   password-file: password.txt
   backup:
     schedule-permission: user_logged_on
@@ -25,7 +29,7 @@ apple-music:
   inherit: base
   backup:
     # the library is a set of SQLite databases, so only back it up while Apple Music is closed
-    run-before: 'tasklist /fi "imagename eq AppleMusic.exe" | find /i "AppleMusic.exe" > nul && exit 1 || exit 0'
+    run-before: 'powershell.exe -NoProfile -NonInteractive -Command exit ([int][bool](Get-Process AppleMusic -ErrorAction SilentlyContinue))'
     source:
       - '{{ $home }}\Music\Apple Music'
     schedule: hourly
@@ -34,10 +38,37 @@ musicbee:
   inherit: base
   backup:
     # MusicBee rewrites the library while running, so only back it up while it is closed
-    run-before: 'tasklist /fi "imagename eq MusicBee.exe" | find /i "MusicBee.exe" > nul && exit 1 || exit 0'
+    run-before: 'powershell.exe -NoProfile -NonInteractive -Command exit ([int][bool](Get-Process MusicBee -ErrorAction SilentlyContinue))'
     source:
       - '{{ $home }}\Music\MusicBee'
       # the Store version keeps its settings in the package's virtualized AppData
       - '{{ $home }}\AppData\Local\Packages\50072StevenMayall.MusicBee_kcr266et74avj\LocalCache\Roaming\MusicBee'
     # half an hour after apple-music so the two prunes don't fight over the repository lock
     schedule: "*:30"
+
+obs-studio:
+  inherit: base
+  backup:
+    # OBS saves settings on exit.
+    run-before: 'powershell.exe -NoProfile -NonInteractive -Command exit ([int][bool](Get-Process obs64,obs32 -ErrorAction SilentlyContinue))'
+    source:
+      - '{{ env "APPDATA" }}\obs-studio'
+    exclude:
+      - logs
+      - crashes
+      - profiler_data
+      - updates
+      - .sentinel
+      - Cache
+      - Code Cache
+      - GPUCache
+    schedule: "*:15"
+
+steam-saves:
+  inherit: base
+  backup:
+    run-before: 'powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command . (Join-Path $env:USERPROFILE .config/resticprofile/backup-steam-saves.ps1)'
+    source:
+      - '{{ env "LOCALAPPDATA" }}\ludusavi-steam-backup'
+    schedule: "*:45"
+    schedule-log: '{{ $home }}\.config\resticprofile\steam-saves.log'

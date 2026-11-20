@@ -2,6 +2,10 @@
 
 dotfiles powerd by [chezmoi](https://www.chezmoi.io/)
 
+## ドキュメント
+
+- [設定・ゲームセーブのバックアップ](docs/backup.md)
+
 ## Requirements
 
 - for mac

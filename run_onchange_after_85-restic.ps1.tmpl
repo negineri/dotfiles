@@ -3,7 +3,7 @@ exit 0
 {{- end }}
 # profiles.yaml hash: {{ include "dot_config/resticprofile/profiles.yaml.tmpl" | sha256sum }}
 
-# exit non-zero on failure so chezmoi retries this script on the next apply
+# 失敗時は非ゼロで終了し、次回の chezmoi apply で再試行する。
 $resticprofile = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\creativeprojects.resticprofile_Microsoft.Winget.Source_8wekyb3d8bbwe\resticprofile.exe"
 $dir = Join-Path $HOME ".config\resticprofile"
 $config = Join-Path $dir "profiles.yaml"
@@ -11,13 +11,13 @@ if (-not (Test-Path $resticprofile)) {
     Write-Host "resticprofile not found"
     exit 1
 }
-# on a fresh machine profiles.yaml is rendered before winget installs restic
+# 新しい PC では設定生成が Restic のインストールより先になる場合があるため、実行先を確認する。
 if (-not (Select-String -Path $config -Pattern 'restic-binary: ".+"' -Quiet)) {
     Write-Host "restic was not installed when profiles.yaml was written; run chezmoi apply again"
     exit 1
 }
 
-# keep the repository password readable by the current user and SYSTEM only
+# リポジトリのパスワードファイルは、現在の利用者と SYSTEM だけが読み書きできるようにする。
 $user = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
 icacls (Join-Path $dir "password.txt") /inheritance:r /grant:r "*${user}:F" "*S-1-5-18:F" /q
 if ($LASTEXITCODE -ne 0) {
@@ -28,6 +28,7 @@ function Invoke-Profile {
     & $resticprofile --config $config @args
 }
 
+# バックアップ先へ接続し、未初期化の場合は暗号化リポジトリを作成する。
 Invoke-Profile base.cat config *> $null
 if ($LASTEXITCODE -ne 0) {
     Invoke-Profile base.init
@@ -36,7 +37,7 @@ if ($LASTEXITCODE -ne 0) {
     }
 }
 
-# restore each library on a new machine, before its app creates an empty one
+# 新しい PC では、アプリが空のライブラリを作る前に既存のバックアップを復元する。
 $musicbeeSettings = Join-Path $env:LOCALAPPDATA "Packages\50072StevenMayall.MusicBee_kcr266et74avj\LocalCache\Roaming\MusicBee"
 $apps = @(
     @{ profile = "apple-music"; process = "AppleMusic"; marker = "Apple Music Library.musiclibrary"; paths = @((Join-Path $HOME "Music\Apple Music")) },
@@ -51,13 +52,13 @@ foreach ($app in $apps) {
         Write-Host "close $($app.process) first"
         exit 1
     }
-    # the profiles share one repository, so pick this profile's snapshots by path
+    # 同じリポジトリ内の他のアプリと混同しないよう、保存元パスでスナップショットを絞る。
     $snapshots = Invoke-Profile "$($app.profile).snapshots" --path $library --json | ConvertFrom-Json
     if (-not $snapshots) {
         continue
     }
     foreach ($path in $app.paths) {
-        # restic stores C:\Users\x as /C/Users/x
+        # Restic 内部の保存パス表記へ変換する（C:\Users\x → /C/Users/x）。
         $inSnapshot = "/" + ($path -replace ':', '' -replace '\\', '/')
         Invoke-Profile "$($app.profile).restore" "latest:$inSnapshot" --path $library --target $path
         if ($LASTEXITCODE -ne 0) {
@@ -66,8 +67,9 @@ foreach ($app in $apps) {
     }
 }
 
-foreach ($app in $apps) {
-    Invoke-Profile "$($app.profile).schedule"
+# 音楽ライブラリ・OBS 設定・ゲームセーブの定期バックアップを登録する。
+foreach ($profile in ($apps.profile + @("obs-studio", "steam-saves"))) {
+    Invoke-Profile "$profile.schedule"
     if ($LASTEXITCODE -ne 0) {
         exit 1
     }

@@ -84,6 +84,7 @@ packages:
       - "nu774.qaac"
       - "restic.restic"
       - "creativeprojects.resticprofile"
+      - "mtkennerly.ludusavi"
       # Debian needs WSL installed first. WSL and ChatGPT ship a packaged
       # service, which needs an elevated winget
       - id: "Microsoft.WSL"
@@ -101,7 +102,6 @@ packages:
       # MERGETASKS adds "Open with Code" to the Windows 11 Explorer context menu
       - id: "Microsoft.VisualStudioCode"
         override: "/VERYSILENT /NORESTART /MERGETASKS=!runcode,addcontextmenufiles,addcontextmenufolders"
-      - "DeepL.DeepL"
       - "WiresharkFoundation.Wireshark"
       - "Google.Chrome.EXE"
       - "SlackTechnologies.Slack"
@@ -114,6 +114,7 @@ packages:
       - "Bitwarden.Bitwarden"
       - "Netbird.Netbird"
       - "Valve.Steam"
+      - "EpicGames.EpicGamesLauncher"
       - "AndreWiethoff.ExactAudioCopy"
       - "GuinpinSoft.MakeMKV"
       - "LeawoSoftware.Blu-rayPlayer"

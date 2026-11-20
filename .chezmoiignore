@@ -1,8 +1,10 @@
 README.md
+docs
 key.txt.age
 scripts
 .config/mise/brewless-config.toml
 .config/mise/brew-config.toml
+.config/ludusavi-steam/config.yaml
 {{- if and (ne .profile "darwin_client") (ne .profile "debian_client") (ne .profile "windows_client") }}
 .wezterm.lua
 {{- end }}
@@ -21,4 +23,5 @@ Library
 {{- else }}
 *.ps1
 .config/resticprofile
+.config/ludusavi-steam
 {{- end }}

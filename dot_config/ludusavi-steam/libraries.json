@@ -1,0 +1,36 @@
+{
+  "includeSteamAppIds": [1172470],
+  "folders": ["N:/pf", "N:/pf/上海アリス幻樂団"],
+  "portableRules": [
+    {"pattern": "beatoraja*", "files": ["player", "config*.json", "config*.yml", "config*.yaml"]},
+    {"pattern": "kshootmania*", "files": ["score", "config.ini", "*/score", "*/config.ini"]},
+    {"pattern": "Ib_1.07", "files": ["*.sav", "*.lsd", "*/*.sav", "*/*.lsd", "*/data/*.sav", "*/data/*.lsd"]},
+    {"pattern": "ShanghaiEXE*", "files": ["*.sav", "*/gamedata/*.sav", "*/gamedata/save*", "gamedata/*.sav", "gamedata/save*"]},
+    {"pattern": "東方夢終劇", "files": ["config.dat", "replay", "script/*/save*", "script/*/score*"]},
+    {"pattern": "神魔討綺伝", "files": ["*/*.sav", "*/*.cfg"]},
+    {"pattern": "秋霜玉", "files": ["秋霜CFG.DAT", "秋霜SC.DAT", "秋霜りぷ*.DAT"]},
+    {"pattern": "東方緋想天", "files": ["Profile", "Replay", "score.dat", "config.dat", "config*.ini"]},
+    {"pattern": "東方非想天則*", "files": ["profile", "replay", "score123.dat", "config123.dat", "config*.ini"]}
+  ],
+  "aliases": {
+    "東方紅魔郷": "The Embodiment of Scarlet Devil",
+    "東方妖々夢": "Perfect Cherry Blossom",
+    "東方永夜抄": "Imperishable Night",
+    "東方花映塚": "Phantasmagoria of Flower View",
+    "東方文花帖": "Shoot the Bullet",
+    "東方風神録": "Mountain of Faith",
+    "東方地霊殿": "Subterranean Animism",
+    "東方星蓮船": "Undefined Fantastic Object",
+    "妖精大戦争": "Fairy Wars",
+    "東方神霊廟": "Ten Desires",
+    "東方輝針城": "Double Dealing Character",
+    "東方紺珠伝": "Legacy of Lunatic Kingdom",
+    "東方天空璋": "Hidden Star in Four Seasons",
+    "東方鬼形獣": "Wily Beast and Weakest Creature",
+    "東方虹龍洞": "Unconnected Marketeers",
+    "バレットフィリア達の闇市場": "100th Black Market",
+    "東方獣王園": "Unfinished Dream of All Living Ghost",
+    "東方憑依華": "Antinomy of Common Flowers",
+    "Jalopy_13052019": "Jalopy"
+  }
+}

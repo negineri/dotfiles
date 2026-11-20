@@ -1,0 +1,16 @@
+# Copied to config.yaml on first use. Ludusavi manages config.yaml afterwards.
+backup:
+  path: '{{ env "LOCALAPPDATA" | replace "'" "''" }}\ludusavi-steam-backup'
+  filter:
+    excludeStoreScreenshots: true
+    cloud:
+      exclude: true
+      steam: true
+  retention:
+    full: 1
+    differential: 0
+  onlyConstructive: true
+restore:
+  path: '{{ env "LOCALAPPDATA" | replace "'" "''" }}\ludusavi-steam-backup'
+cloud:
+  synchronize: false
