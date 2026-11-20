@@ -1,0 +1,18 @@
+﻿# 失敗時は非ゼロで終了し、次回の chezmoi apply で再試行する。
+{{ if eq .chezmoi.os "windows" -}}
+# qaac source hash: {{ output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" `$ErrorActionPreference = 'Stop'; $package = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages\nu774.qaac_Microsoft.Winget.Source_8wekyb3d8bbwe'; if (Test-Path -LiteralPath $package) { $sha = [Security.Cryptography.SHA256]::Create(); Get-ChildItem (Join-Path $package 'qaac_*\x64\*') -File | Sort-Object FullName | ForEach-Object { $_.FullName + ':' + [BitConverter]::ToString($sha.ComputeHash([IO.File]::ReadAllBytes($_.FullName))) } } else { 'not-installed' }` | sha256sum }}
+{{ end -}}
+$ErrorActionPreference = 'Stop'
+
+# winget 配下の最新版の qaac と関連ファイルを、共通の実行先 C:\bin に配置する。
+$qaac = Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\nu774.qaac_Microsoft.Winget.Source_8wekyb3d8bbwe\qaac_*\x64" -Directory -ErrorAction SilentlyContinue |
+    Sort-Object { [version]($_.Parent.Name -replace '^qaac_', '') } |
+    Select-Object -Last 1
+if (-not $qaac) {
+    Write-Host "qaac not found"
+    exit 1
+}
+New-Item -ItemType Directory -Force "C:\bin" | Out-Null
+Copy-Item "$($qaac.FullName)\*" "C:\bin" -Force
+
+exit 0

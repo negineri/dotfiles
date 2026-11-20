@@ -34,6 +34,16 @@ apple-music:
       - '{{ $home }}\Music\Apple Music'
     schedule: hourly
 
+eac:
+  inherit: base
+  backup:
+    run-before: 'powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command . (Join-Path $env:USERPROFILE .config/resticprofile/backup-eac.ps1)'
+    source:
+      - '{{ env "LOCALAPPDATA" }}\eac-registry-backup'
+      - '{{ env "APPDATA" }}\EAC'
+    schedule: "*:05"
+    schedule-log: '{{ $home }}\.config\resticprofile\eac.log'
+
 musicbee:
   inherit: base
   backup:

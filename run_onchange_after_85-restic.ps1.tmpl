@@ -1,4 +1,4 @@
-{{- if not .decrypt }}
+﻿{{- if not .decrypt }}
 exit 0
 {{- end }}
 # profiles.yaml hash: {{ include "dot_config/resticprofile/profiles.yaml.tmpl" | sha256sum }}
@@ -67,8 +67,8 @@ foreach ($app in $apps) {
     }
 }
 
-# 音楽ライブラリ・OBS 設定・ゲームセーブの定期バックアップを登録する。
-foreach ($profile in ($apps.profile + @("obs-studio", "steam-saves"))) {
+# 音楽ライブラリ・EAC・OBS 設定・ゲームセーブの定期バックアップを登録する。
+foreach ($profile in ($apps.profile + @("eac", "obs-studio", "steam-saves"))) {
     Invoke-Profile "$profile.schedule"
     if ($LASTEXITCODE -ne 0) {
         exit 1

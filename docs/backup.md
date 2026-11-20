@@ -25,6 +25,7 @@ Restic のパスワードは Bitwarden の `restic` アイテムから生成す�
 | プロファイル | 保存元 | 実行時刻 | 起動中の扱い |
 | --- | --- | --- | --- |
 | `apple-music` | `$HOME\Music\Apple Music` | 毎時00分 | Apple Music が起動中ならその回は中止 |
+| `eac` | EAC レジストリのエクスポートと `$env:APPDATA\EAC` | 毎時05分 | EAC が起動中ならその回は中止 |
 | `obs-studio` | `$env:APPDATA\obs-studio` | 毎時15分 | OBS が起動中ならその回は中止 |
 | `musicbee` | `$HOME\Music\MusicBee` と Store 版の設定フォルダー | 毎時30分 | MusicBee が起動中ならその回は中止 |
 | `steam-saves` | Ludusavi の作業用コピー | 毎時45分 | 起動中と判定したゲームをスキップ |
@@ -43,6 +44,8 @@ MusicBee の Store 版設定は `$env:LOCALAPPDATA\Packages\50072StevenMayall.Mu
 | `dot_config/resticprofile/private_password.txt.tmpl` | Bitwarden からのパスワード生成 |
 | `run_onchange_after_85-restic.ps1.tmpl` | 権限設定、リポジトリ初期化、音楽ライブラリの初回復元、タスク登録 |
 | `dot_config/resticprofile/backup-steam-saves.ps1` | ゲーム検出、対象判定、Ludusavi の実行 |
+| `dot_config/resticprofile/backup-eac.ps1` | 現在の EAC レジストリを保存用ファイルへエクスポート |
+| `run_onchange_after_80-qaac.ps1.tmpl` | qaac・refalac と関連ファイルを共通の `C:\bin` へ配置 |
 | `dot_config/ludusavi-steam/libraries.json` | 追加フォルダー、ゲーム名の対応表、個別保存ルール、Steam Cloud 除外の例外 |
 | `dot_config/ludusavi-steam/initial-config.yaml.tmpl` | Ludusavi の初回設定 |
 | `.chezmoidata/packages.yaml` | Restic、resticprofile、Ludusavi のインストール指定 |
@@ -140,7 +143,7 @@ Get-ScheduledTask -TaskPath '\resticprofile backup\' |
 2. `run_onchange_after_85-restic.ps1.tmpl` の末尾にある登録対象へ `example-app` を追加する。
 
    ```powershell
-   foreach ($profile in ($apps.profile + @("obs-studio", "steam-saves", "example-app"))) {
+   foreach ($profile in ($apps.profile + @("eac", "obs-studio", "steam-saves", "example-app"))) {
    ```
 
 3. `chezmoi apply` で反映し、アプリを閉じて手動バックアップと保存内容を確認する。
@@ -221,6 +224,43 @@ $report.games | Format-Table store, name, state -AutoSize
 ## 復元する
 
 Apple Music と MusicBee は、初回設定スクリプトでライブラリの目印ファイルが見つからず、対応するスナップショットがある場合に復元する。OBS とゲームは以下のように履歴を選んで手動復元する。
+
+### EAC のレジストリ設定
+
+EAC の設定は現在のレジストリをバックアップして管理する。従来の `.chezmoitemplates/eac.reg` と自動インポート処理は削除済み。共通のエンコーダー配置スクリプト `run_onchange_after_80-qaac.ps1.tmpl` が qaac・refalac と関連ファイルを `C:\bin` へ配置する。
+
+このテンプレートには winget 配下の qaac の配置元パスとファイル内容から計算したハッシュを埋め込む。qaac の更新でパスや内容が変わると、次の `chezmoi apply` でスクリプトが再実行され、最新版を配置する。ハッシュの計算対象は各 `qaac_*\x64` の直下にあるファイル。実際のコピー元はバージョン番号で比較して決める。
+
+バックアップ前に `HKCU\Software\AWSoftware\EACU` 以下を `$env:LOCALAPPDATA\eac-registry-backup\eac.reg` に書き出す。エクスポートに成功した場合に保存用ファイルを更新し、Restic が AppData の EAC フォルダーと一緒に暗号化保存する。新しい PC でキーがまだ存在しない場合は、既存のバックアップを復元するか EAC で設定してから定期バックアップを開始する。
+
+手動バックアップと履歴確認は次で行う。
+
+```powershell
+& $rp --config $config eac.backup
+& $rp --config $config eac.snapshots --path "$env:LOCALAPPDATA\eac-registry-backup"
+notepad "$HOME\.config\resticprofile\eac.log"
+```
+
+復元時は EAC を終了する。スナップショット内の `eac-registry-backup` のパスを確認し、別フォルダーへ取り出す。
+
+```powershell
+$snapshotId = Read-Host '復元する EAC スナップショット ID'
+& $rp --config $config eac.ls $snapshotId
+$snapshotFolder = Read-Host '一覧に表示された eac-registry-backup の内部パス'
+$recoveryDir = Join-Path $env:TEMP ('eac-recovery-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+& $rp --config $config eac.restore "${snapshotId}:$snapshotFolder" --target $recoveryDir
+if ($LASTEXITCODE -ne 0) { throw 'EAC バックアップの取り出しに失敗しました。' }
+```
+
+取り出した `eac.reg` を確認してから、EAC を使う Windows ユーザーで手動インポートする。
+
+```powershell
+if (Get-Process EAC -ErrorAction SilentlyContinue) { throw 'EAC を終了してください。' }
+reg.exe import (Join-Path $recoveryDir 'eac.reg')
+if ($LASTEXITCODE -ne 0) { throw 'EAC レジストリの復元に失敗しました。' }
+```
+
+`.reg` のインポートは保存された値を既存のキーに反映する。レジストリのアクセス権は `.reg` に含まれない。プロファイルや CDDB を戻す場合は、同じスナップショットの `AppData/Roaming/EAC` も別フォルダーへ取り出し、EAC の終了中に現在の AppData の EAC フォルダーへ戻す。
 
 ### ゲームセーブ
 
