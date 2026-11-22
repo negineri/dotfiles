@@ -1,0 +1,24 @@
+﻿# 配布ファイルの定義が変わった場合は、取得済みプラグインを再配置する。
+# external config hash: {{ include ".chezmoiexternal.toml" | sha256sum }}
+$ErrorActionPreference = 'Stop'
+
+# AviUtl ExEdit2 用の入力プラグインを共通のプラグインフォルダーへ配置する。
+$source = Join-Path $HOME '.local\share\aviutl2\l-smash-works\AviUtl2\lwinput.aui2'
+$destination = Join-Path $env:ProgramData 'aviutl2\Plugin'
+if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+    throw 'L-SMASH Works for AviUtl2 was not downloaded. Run chezmoi apply again.'
+}
+New-Item -ItemType Directory -Path $destination -Force | Out-Null
+Copy-Item -LiteralPath $source -Destination (Join-Path $destination 'lwinput.aui2') -Force
+
+# Path_S のスクリプトと表示情報を、配布パッケージと同じフォルダー構成で配置する。
+$pathSRoot = Join-Path $HOME '.local\share\aviutl2\path-s'
+foreach ($folder in @('Script', 'Language')) {
+    $sourceFolder = Join-Path $pathSRoot $folder
+    if (-not (Test-Path -LiteralPath $sourceFolder -PathType Container)) {
+        throw "Path_S $folder files were not downloaded. Run chezmoi apply again."
+    }
+    $destinationFolder = Join-Path $env:ProgramData "aviutl2\$folder"
+    New-Item -ItemType Directory -Path $destinationFolder -Force | Out-Null
+    Copy-Item -Path (Join-Path $sourceFolder '*') -Destination $destinationFolder -Recurse -Force
+}

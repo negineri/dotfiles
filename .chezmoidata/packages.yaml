@@ -80,6 +80,7 @@ packages:
       - "Microsoft.PowerShell"
       - "7zip.7zip"
       - "Gyan.FFmpeg"
+      - "Kenkun.AviUtlExEdit2"
       - "FastCopy.FastCopy"
       - "nu774.qaac"
       - "restic.restic"

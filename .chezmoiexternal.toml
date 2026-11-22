@@ -36,3 +36,17 @@ url = "https://github.com/bitwarden/sdk-sm/releases/download/bws-v2.1.0/bws-aarc
 refreshPeriod = "168h"
 path = "bws"
 {{- end }}
+
+{{- if eq .chezmoi.os "windows" }}
+[".local/share/aviutl2/l-smash-works"]
+type = "archive"
+url = "https://github.com/Mr-Ojii/L-SMASH-Works-Auto-Builds/releases/download/build-20261121-030006/L-SMASH-Works_r1302_Mr-Ojii_Mr-Ojii.zip"
+checksum.sha256 = "68b95e6d7b945542ddc7c6fd38958b54cb20e6b0993529c52993465e4a5636dd"
+include = ["AviUtl2/**"]
+
+[".local/share/aviutl2/path-s"]
+type = "archive"
+url = "https://github.com/sigma-axis/aviutl2_script_Path_S/releases/download/v2.51/aviutl2_script_Path_S-v2.51.au2pkg.zip"
+checksum.sha256 = "095c782da1679ca7041df4a845d590ca76531ffa345f9a5f089a11b5772b235f"
+include = ["Script/**", "Language/**"]
+{{- end }}
