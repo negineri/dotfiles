@@ -9,3 +9,12 @@
 	ff = false
 [push]
 	followTags = true
+[sendemail]
+	smtpServer = mail.sfc.wide.ad.jp
+	smtpServerPort = 465
+	smtpEncryption = ssl
+	# Enable SMTP AUTH and let the credential helper supply the username.
+	smtpUser = ""
+[credential "smtp://mail.sfc.wide.ad.jp:465"]
+	helper =
+	helper = "!sh \"$HOME/.config/git/sfc-smtp-credential\""
